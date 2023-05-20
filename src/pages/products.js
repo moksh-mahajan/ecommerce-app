@@ -85,6 +85,28 @@ function LoadingIndicator() {
   return <div>Loading...</div>;
 }
 
+const addProductToCart = async (product) => {
+  try {
+    const jwtToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
+    const headers = new Headers();
+    headers.append("Authorization", "Bearer " + jwtToken);
+    const response = await fetch("/api/user/cart", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ product }),
+    });
+    // console.log(response);
+    console.log(await response.json());
+    // if (response.status === 200) {
+    //   const { cart } = (await response.json()).cart;
+    //   setCartItems(cart);
+    // }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 function ProductList({ products }) {
   return (
     <ul style={{ display: "flex" }}>
@@ -99,7 +121,9 @@ function ProductList({ products }) {
             />
             <h5>{product.name}</h5>
             <h5>{`₹${product.price}`}</h5>
-            <button>Add to Cart</button>
+            <button onClick={() => addProductToCart(product)}>
+              Add to Cart
+            </button>
           </div>
         );
       })}

@@ -7,8 +7,8 @@ import Mockman from "mockman-js";
 function App() {
   return (
     <FiltersProvider>
-      <Cart />
-      {/* <Products /> */}
+      {/* <Cart /> */}
+      <Products />
     </FiltersProvider>
   );
 }
