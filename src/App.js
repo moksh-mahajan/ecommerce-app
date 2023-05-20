@@ -1,9 +1,9 @@
 import "./App.css";
-import Filters from "./components/Filters/Filters";
 import logo from "./logo.png";
+import Products from "./pages/products";
 
 function App() {
-  return <Filters />;
+  return <Products/>
 }
 
 export default App;
