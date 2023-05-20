@@ -1,6 +1,7 @@
 import { useContext, useEffect, useReducer, useState } from "react";
 import Filters from "../components/Filters/Filters";
 import { FiltersContext } from "../contexts/FiltersContext";
+import { CartContext } from "../contexts/CartContext";
 
 export default function Products() {
   return (

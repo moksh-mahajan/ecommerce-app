@@ -52,3 +52,5 @@ const removeProductFromWishlist = async (productId) => {
     console.error(e);
   }
 };
+
+
