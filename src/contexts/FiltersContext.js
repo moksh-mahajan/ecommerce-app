@@ -1,6 +1,13 @@
-import { createContext } from "react";
+import { createContext, useReducer } from "react";
 
 export const FiltersContext = createContext();
+
+const initialFilterState = {
+  sortOrder: null,
+  selectedRating: null,
+  selectedCategories: [],
+  selectedPrice: null,
+};
 
 const filterReducer = (state, action) => {
   switch (action.type) {
@@ -8,7 +15,7 @@ const filterReducer = (state, action) => {
       return { ...state, sortOrder: action.payload };
 
     case "RATING_CHANGED":
-      return { ...state, sortOrder: action.payload };
+      return { ...state, selectedRating: action.payload };
 
     case "CATEGORY_CLICKED":
       const selectedCategories = state.selectedCategories;
@@ -23,7 +30,7 @@ const filterReducer = (state, action) => {
       };
 
     case "PRICE_CHANGED":
-      return { ...state, price: action.payload };
+      return { ...state, selectedPrice: action.payload };
 
     case "CLEAR_FILTERS":
       return initialFilterState;
@@ -34,15 +41,8 @@ const filterReducer = (state, action) => {
 };
 
 export function FiltersProvider({ children }) {
-  const initialFilterState = {
-    sortOrder: null,
-    rating: null,
-    selectedCategories: [],
-    price: null,
-  };
-
   const [state, dispatch] = useReducer(filterReducer, initialFilterState);
-  
+
   return (
     <FiltersContext.Provider value={{ state, dispatch }}>
       {children}
