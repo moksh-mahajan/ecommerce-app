@@ -96,12 +96,9 @@ const addProductToCart = async (product) => {
       headers,
       body: JSON.stringify({ product }),
     });
-    // console.log(response);
-    console.log(await response.json());
-    // if (response.status === 200) {
-    //   const { cart } = (await response.json()).cart;
-    //   setCartItems(cart);
-    // }
+
+    if (response.status === 201) {
+    }
   } catch (e) {
     console.error(e);
   }
