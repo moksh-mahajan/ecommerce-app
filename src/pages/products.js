@@ -86,29 +86,35 @@ function LoadingIndicator() {
   return <div>Loading...</div>;
 }
 
-const addProductToCart = async (product) => {
-  try {
-    const jwtToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
-    const headers = new Headers();
-    headers.append("Authorization", "Bearer " + jwtToken);
-    const response = await fetch("/api/user/cart", {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ product }),
-    });
-
-    if (response.status === 201) {
-    }
-  } catch (e) {
-    console.error(e);
-  }
-};
-
 function ProductList({ products }) {
+  const { state, dispatch } = useContext(CartContext);
+
+  const addProductToCart = async (product) => {
+    dispatch({ type: "ADDING_PRODUCT", payload: product.id });
+    try {
+      const jwtToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
+      const headers = new Headers();
+      headers.append("Authorization", "Bearer " + jwtToken);
+      const response = await fetch("/api/user/cart", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ product }),
+      });
+
+      if (response.status === 201) {
+        dispatch({ type: "ADD_TO_CART", payload: product });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <ul style={{ display: "flex" }}>
       {products.map((product) => {
+        const isInCart = state.cartItems.some((item) => item.id === product.id);
+
         return (
           <div key={product.id}>
             <img
@@ -119,8 +125,11 @@ function ProductList({ products }) {
             />
             <h5>{product.name}</h5>
             <h5>{`₹${product.price}`}</h5>
-            <button onClick={() => addProductToCart(product)}>
-              Add to Cart
+            <button
+              disabled={product.id === state.addingProductId}
+              onClick={() => addProductToCart(product)}
+            >
+              {isInCart ? "Go" : "Add"} to Cart
             </button>
           </div>
         );
