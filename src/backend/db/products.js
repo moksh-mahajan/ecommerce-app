@@ -35,7 +35,7 @@ export const products = [
       "Red Dead Redemption 2 is an action-adventure game developed and published by Rockstar Games. The game is the third entry in the Red Dead series and is a prequel to the 2010 game Red Dead Redemption. It is set in the fictional American Old West of the 1890s and follows the story of Arthur Morgan, a member of the Van der Linde gang.",
     rating: 4.5,
     thumbnailUrl:
-      "https://en.wikipedia.org/wiki/File:Red_Dead_Redemption_II.jpg",
+      "https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg?20230109164036",
     price: 3999,
     category: "action",
   },

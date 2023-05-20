@@ -15,45 +15,106 @@ export default function Filters() {
 }
 
 function Header() {
+  const { dispatch } = useContext(FiltersContext);
+
   return (
     <div className="filter-header">
       <h4>Filters</h4>
-      <button>Clear</button>
+      <button onClick={() => dispatch({ type: "CLEAR_FILTERS" })}>Clear</button>
     </div>
   );
 }
 
 function PriceSlider() {
+  const { dispatch } = useContext(FiltersContext);
+
   return (
     <div>
       <h4>Price</h4>
       <div>
         {" "}
-        <label>50</label> <label>150</label> <label>200</label>{" "}
+        <label>2K</label> <label>3K</label> <label>4K</label> <label>5K</label>{" "}
       </div>
-      <input type="range" min="50" max="200" step="50" />
+      <input
+        type="range"
+        min="2000"
+        max="5000"
+        step="1000"
+        onChange={(e) =>
+          dispatch({ type: "PRICE_CHANGED", payload: Number(e.target.value) })
+        }
+      />
     </div>
   );
 }
 
 function CategorySelector() {
+  const {
+    dispatch,
+    state: { selectedCategories },
+  } = useContext(FiltersContext);
+
   return (
     <div>
       <h4>Category</h4>
-      <CheckBox label="Men Clothing" />
-      <CheckBox label="Women Clothing" />
+      <CheckBox
+        label="Action"
+        value={selectedCategories.includes("action")}
+        onChange={() =>
+          dispatch({ type: "CATEGORY_CLICKED", payload: "action" })
+        }
+      />
+      <CheckBox
+        label="Adventure"
+        value={selectedCategories.includes("adventure")}
+        onChange={() =>
+          dispatch({ type: "CATEGORY_CLICKED", payload: "adventure" })
+        }
+      />
+      <CheckBox
+        value={selectedCategories.includes("rolePlaying")}
+        label="Role Playing"
+        onChange={() =>
+          dispatch({ type: "CATEGORY_CLICKED", payload: "rolePlaying" })
+        }
+      />
     </div>
   );
 }
 
 function RatingSelector() {
+  const {
+    dispatch,
+    state: { selectedRating },
+  } = useContext(FiltersContext);
+
   return (
     <div>
       <h4>Rating</h4>
-      <Radio label="4 Stars & above" />
-      <Radio label="3 Stars & above" />
-      <Radio label="2 Stars & above" />
-      <Radio label="1 Stars & above" />
+      <Radio
+        label="4 Stars & above"
+        value={selectedRating === 4}
+        name="rating"
+        onChange={() => dispatch({ type: "RATING_CHANGED", payload: 4 })}
+      />
+      <Radio
+        label="3 Stars & above"
+        value={selectedRating === 3}
+        name="rating"
+        onChange={() => dispatch({ type: "RATING_CHANGED", payload: 3 })}
+      />
+      <Radio
+        label="2 Stars & above"
+        value={selectedRating === 2}
+        name="rating"
+        onChange={() => dispatch({ type: "RATING_CHANGED", payload: 2 })}
+      />
+      <Radio
+        label="1 Stars & above"
+        value={selectedRating === 1}
+        name="rating"
+        onChange={() => dispatch({ type: "RATING_CHANGED", payload: 1 })}
+      />
     </div>
   );
 }
@@ -82,19 +143,19 @@ function SortOrderSelector() {
   );
 }
 
-function CheckBox({ label }) {
+function CheckBox({ label, onChange, value }) {
   return (
     <div>
-      <input type="checkbox" />
+      <input type="checkbox" onChange={onChange} checked={value} />
       <label>{label}</label>
     </div>
   );
 }
 
-function Radio({ label, name, onChange }) {
+function Radio({ label, name, onChange, value }) {
   return (
     <div>
-      <input type="radio" name={name} onChange={onChange} />
+      <input type="radio" name={name} onChange={onChange} checked={value} />
       <label>{label}</label>
     </div>
   );

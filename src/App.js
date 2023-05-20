@@ -1,7 +1,6 @@
 import "./App.css";
 import { FiltersProvider } from "./contexts/FiltersContext";
-import logo from "./logo.png";
-import Products from "./pages/products";
+import Products from "./pages/Products";
 
 function App() {
   return (

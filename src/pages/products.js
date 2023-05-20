@@ -1,38 +1,6 @@
-import { useContext, useReducer } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import Filters from "../components/Filters/Filters";
 import { FiltersContext } from "../contexts/FiltersContext";
-
-const data = [
-  {
-    name: "Men Mid-Range Jacket",
-    id: 1,
-    price: "1000",
-    image:
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80",
-  },
-  {
-    name: "Men Premium Jacket",
-    id: 0,
-    price: "2000",
-    image:
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80",
-  },
-  {
-    name: "Men Cap",
-    id: 3,
-    price: "200",
-    image:
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80",
-  },
-
-  {
-    name: "Men Affordable Jacket",
-    id: 2,
-    price: "500",
-    image:
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80",
-  },
-];
 
 export default function Products() {
   return (
@@ -48,8 +16,29 @@ function ProductsSection() {
     state: { sortOrder, selectedCategories, selectedRating, selectedPrice },
   } = useContext(FiltersContext);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+
+  const loadProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (response.status === 200) {
+        const products = (await response.json()).products;
+        setProducts(products);
+      }
+      console.log("response", response);
+    } catch (e) {
+      console.error(e);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
   const getFilteredProducts = () => {
-    let filteredProducts = [...data];
+    let filteredProducts = [...products];
 
     if (sortOrder === "asc") {
       filteredProducts.sort((a, b) => a.price - b.price);
@@ -78,15 +67,22 @@ function ProductsSection() {
     return filteredProducts;
   };
 
-  return (
+  return isLoading ? (
+    <LoadingIndicator />
+  ) : (
     <div>
       <span style={{ display: "flex" }}>
         <label>Showing All Products </label>
-        <label>(showing 20 products)</label>
+        <label>{`(showing ${products.length} products)`}</label>
       </span>
+
       <ProductList products={getFilteredProducts()} />
     </div>
   );
+}
+
+function LoadingIndicator() {
+  return <div>Loading...</div>;
 }
 
 function ProductList({ products }) {
@@ -96,10 +92,10 @@ function ProductList({ products }) {
         return (
           <div key={product.id}>
             <img
-              src={product.image}
+              src={product.thumbnailUrl}
               alt={product.name}
               width="200"
-              height="180"
+              height="250"
             />
             <h5>{product.name}</h5>
             <h5>{`₹${product.price}`}</h5>
