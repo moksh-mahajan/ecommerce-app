@@ -2,6 +2,7 @@ import { useContext, useEffect, useReducer, useState } from "react";
 import Filters from "../components/Filters/Filters";
 import { FiltersContext } from "../contexts/FiltersContext";
 import { CartContext } from "../contexts/CartContext";
+import { WishlistContext } from "../contexts/WishlistContext";
 
 export default function Products() {
   return (
@@ -88,6 +89,7 @@ function LoadingIndicator() {
 
 function ProductList({ products }) {
   const { state, dispatch } = useContext(CartContext);
+  const { dispatch: wishlistDispatch } = useContext(WishlistContext);
 
   const addProductToCart = async (product) => {
     try {
@@ -105,6 +107,29 @@ function ProductList({ products }) {
         dispatch({
           type: "REFRESH_CART",
           payload: (await response.json()).cart,
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const addProductToWishlist = async (product) => {
+    try {
+      const jwtToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
+      const headers = new Headers();
+      headers.append("Authorization", "Bearer " + jwtToken);
+      const response = await fetch("/api/user/wishlist", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ product }),
+      });
+
+      if (response.status === 201) {
+        wishlistDispatch({
+          type: "REFRESH_WISHLIST",
+          payload: (await response.json()).wishlist,
         });
       }
     } catch (e) {
@@ -132,6 +157,10 @@ function ProductList({ products }) {
               onClick={() => addProductToCart(product)}
             >
               {isInCart ? "Go" : "Add"} to Cart
+            </button>
+
+            <button onClick={() => addProductToWishlist(product)}>
+              Add to Wishlist
             </button>
           </div>
         );

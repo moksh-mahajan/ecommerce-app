@@ -6,9 +6,11 @@ import Products from "./pages/Products";
 import WishList from "./pages/WishList";
 import { useContext, useEffect } from "react";
 import { CartContext } from "./contexts/CartContext";
+import { WishlistContext } from "./contexts/WishlistContext";
 
 function App() {
   const { state, dispatch } = useContext(CartContext);
+  const { state: wishlistState } = useContext(WishlistContext);
 
   const loadCart = async () => {
     try {
@@ -34,10 +36,8 @@ function App() {
   return (
     <div>
       <div>
-        {state.isLoading && <div>Loading Cart...</div>}
-        {state.isLoading}
-        <Link to="/wishlist">Wishlist</Link> ||{" "}
-        <Link to="/cart">{`Cart(${state.cartItems.length})`}</Link>
+        <Link to="/cart">Cart {state.cartItems.length}</Link> ||{" "}
+        <Link to="/wishlist">{`Wishlist(${wishlistState.items.length})`}</Link>
       </div>
       <Routes>
         <Route
