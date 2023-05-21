@@ -61,17 +61,17 @@ function CategorySelector() {
   return (
     <div>
       <h4>Category</h4>
-      
-        {categories.map(({ categoryName }) => (
-          <CheckBox
-            label={categoryName}
-            value={selectedCategories.includes(categoryName)}
-            onChange={() =>
-              dispatch({ type: "CATEGORY_CLICKED", payload: categoryName })
-            }
-          />
-        ))}
-     
+
+      {categories.map(({ categoryName, id }) => (
+        <CheckBox
+          key={id}
+          label={categoryName}
+          value={selectedCategories.includes(categoryName)}
+          onChange={() =>
+            dispatch({ type: "CATEGORY_CLICKED", payload: categoryName })
+          }
+        />
+      ))}
     </div>
   );
 }

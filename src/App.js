@@ -58,14 +58,7 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/products"
-          element={
-            <FiltersProvider>
-              <Products />
-            </FiltersProvider>
-          }
-        />
+        <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<WishList />} />
       </Routes>
