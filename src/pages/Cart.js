@@ -19,15 +19,33 @@ function CartItems({ items }) {
   return (
     <ul>
       {items.map((item) => (
-        <CartItemCard item={item} />
+        <CartItemCard key={item.id} item={item} />
       ))}
     </ul>
   );
 }
 
 function CartItemCard({ item }) {
-  console.log('item', item)
-  const { thumbnailUrl, name, price, quantity } = item;
+  const { thumbnailUrl, name, price, qty } = item;
+  const { dispatch } = useContext(CartContext);
+
+  const updateProductCount = async (productId, type) => {
+    try {
+      const jwtToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
+      const headers = new Headers();
+      headers.append("Authorization", "Bearer " + jwtToken);
+      const response = await fetch("/api/user/cart/" + productId, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ action: { type } }),
+      });
+
+      dispatch({ type: "REFRESH_CART", payload: (await response.json()).cart });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div>
@@ -38,9 +56,14 @@ function CartItemCard({ item }) {
         <label>{name}</label>
         <label>₹{price}</label>
         <div>
-          <label>Quantity: </label> <button>-</button>
-          <label>{quantity}</label>
-          <button>+</button>
+          <label>Quantity: </label>{" "}
+          <button onClick={() => updateProductCount(item._id, "decrement")}>
+            -
+          </button>
+          <label>{qty}</label>
+          <button onClick={() => updateProductCount(item._id, "increment")}>
+            +
+          </button>
         </div>
         <button>Remove From Cart</button>
         <button>Move to Wishlist</button>
@@ -88,26 +111,6 @@ const removeProductFromCart = async (productId) => {
       method: "DELETE",
       headers,
     });
-    // console.log(response);
-    console.log(await response.json());
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-const updateProductCount = async (productId, type) => {
-  try {
-    const jwtToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
-    const headers = new Headers();
-    headers.append("Authorization", "Bearer " + jwtToken);
-    const response = await fetch("/api/user/cart/" + productId, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ action: { type } }),
-    });
-    // console.log(response);
-    console.log(await response.json());
   } catch (e) {
     console.error(e);
   }

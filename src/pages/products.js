@@ -90,7 +90,6 @@ function ProductList({ products }) {
   const { state, dispatch } = useContext(CartContext);
 
   const addProductToCart = async (product) => {
-    dispatch({ type: "ADDING_PRODUCT", payload: product.id });
     try {
       const jwtToken =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
@@ -104,7 +103,7 @@ function ProductList({ products }) {
 
       if (response.status === 201) {
         dispatch({
-          type: "ADD_TO_CART",
+          type: "REFRESH_CART",
           payload: (await response.json()).cart,
         });
       }
