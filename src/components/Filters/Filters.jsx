@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import "./Filters.css";
 import { FiltersContext } from "../../contexts/FiltersContext";
+import { CategoriesContext } from "../../contexts/CategoriesContext";
 
 export default function Filters() {
   return (
@@ -54,30 +55,23 @@ function CategorySelector() {
     state: { selectedCategories },
   } = useContext(FiltersContext);
 
+  const { state: categoriesState } = useContext(CategoriesContext);
+  const categories = categoriesState.categories;
+
   return (
     <div>
       <h4>Category</h4>
-      <CheckBox
-        label="Action"
-        value={selectedCategories.includes("action")}
-        onChange={() =>
-          dispatch({ type: "CATEGORY_CLICKED", payload: "action" })
-        }
-      />
-      <CheckBox
-        label="Adventure"
-        value={selectedCategories.includes("adventure")}
-        onChange={() =>
-          dispatch({ type: "CATEGORY_CLICKED", payload: "adventure" })
-        }
-      />
-      <CheckBox
-        value={selectedCategories.includes("rolePlaying")}
-        label="Role Playing"
-        onChange={() =>
-          dispatch({ type: "CATEGORY_CLICKED", payload: "rolePlaying" })
-        }
-      />
+      
+        {categories.map(({ categoryName }) => (
+          <CheckBox
+            label={categoryName}
+            value={selectedCategories.includes(categoryName)}
+            onChange={() =>
+              dispatch({ type: "CATEGORY_CLICKED", payload: categoryName })
+            }
+          />
+        ))}
+     
     </div>
   );
 }

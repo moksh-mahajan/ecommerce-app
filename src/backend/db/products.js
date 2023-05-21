@@ -15,7 +15,7 @@ export const products = [
     thumbnailUrl:
       "https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg",
     price: 3999,
-    category: "rolePlaying",
+    category: "Role-Playing",
   },
   {
     _id: uuid(),
@@ -26,7 +26,7 @@ export const products = [
     thumbnailUrl:
       "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
     price: 2999,
-    category: "action",
+    category: "Action",
   },
   {
     _id: uuid(),
@@ -37,7 +37,7 @@ export const products = [
     thumbnailUrl:
       "https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg?20230109164036",
     price: 3999,
-    category: "action",
+    category: "Action",
   },
   {
     _id: uuid(),
@@ -48,6 +48,6 @@ export const products = [
     thumbnailUrl:
       "https://upload.wikimedia.org/wikipedia/en/c/c6/The_Legend_of_Zelda_Breath_of_the_Wild.jpg",
     price: 2999,
-    category: "adventure",
+    category: "Adventure",
   },
 ];
