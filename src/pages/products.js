@@ -103,7 +103,10 @@ function ProductList({ products }) {
       });
 
       if (response.status === 201) {
-        dispatch({ type: "ADD_TO_CART", payload: product });
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: (await response.json()).cart,
+        });
       }
     } catch (e) {
       console.error(e);
@@ -126,7 +129,7 @@ function ProductList({ products }) {
             <h5>{product.name}</h5>
             <h5>{`₹${product.price}`}</h5>
             <button
-              disabled={product.id === state.addingProductId}
+              disabled={product._id === state.loadingProductId}
               onClick={() => addProductToCart(product)}
             >
               {isInCart ? "Go" : "Add"} to Cart
