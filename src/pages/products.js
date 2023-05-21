@@ -89,7 +89,8 @@ function LoadingIndicator() {
 
 function ProductList({ products }) {
   const { state, dispatch } = useContext(CartContext);
-  const { dispatch: wishlistDispatch } = useContext(WishlistContext);
+  const { state: wishlistState, dispatch: wishlistDispatch } =
+    useContext(WishlistContext);
 
   const addProductToCart = async (product) => {
     try {
@@ -137,10 +138,32 @@ function ProductList({ products }) {
     }
   };
 
+  const removeProductFromWishlist = async (productId) => {
+    try {
+      const jwtToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
+      const headers = new Headers();
+      headers.append("Authorization", "Bearer " + jwtToken);
+      const response = await fetch("/api/user/wishlist/" + productId, {
+        method: "DELETE",
+        headers,
+      });
+      wishlistDispatch({
+        type: "REFRESH_WISHLIST",
+        payload: (await response.json()).wishlist,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <ul style={{ display: "flex" }}>
       {products.map((product) => {
         const isInCart = state.cartItems.some((item) => item.id === product.id);
+        const isInWishlist = wishlistState.items.some(
+          (item) => item.id === product.id
+        );
 
         return (
           <div key={product.id}>
@@ -159,8 +182,14 @@ function ProductList({ products }) {
               {isInCart ? "Go" : "Add"} to Cart
             </button>
 
-            <button onClick={() => addProductToWishlist(product)}>
-              Add to Wishlist
+            <button
+              onClick={() =>
+                isInWishlist
+                  ? removeProductFromWishlist(product._id)
+                  : addProductToWishlist(product)
+              }
+            >
+              {isInWishlist ? "Remove From Wishlist" : "Add to Wishlist"}
             </button>
           </div>
         );
