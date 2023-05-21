@@ -6,6 +6,7 @@ const initialState = {
   isLoading: true,
   cartItems: [],
   addingProductId: null,
+  removingProductId: null,
 };
 
 const cartReducer = (state, action) => {
@@ -22,6 +23,8 @@ const cartReducer = (state, action) => {
         cartItems: [...state.cartItems, action.payload],
         addingProductId: null,
       };
+
+  
 
     default:
       return state;
