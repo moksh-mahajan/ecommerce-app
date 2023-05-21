@@ -74,7 +74,10 @@ function CartItemCard({ item }) {
         <label>₹{price}</label>
         <div>
           <label>Quantity: </label>{" "}
-          <button onClick={() => updateProductCount(item._id, "decrement")}>
+          <button
+            disabled={qty === 1}
+            onClick={() => updateProductCount(item._id, "decrement")}
+          >
             -
           </button>
           <label>{qty}</label>
