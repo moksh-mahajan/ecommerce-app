@@ -47,6 +47,23 @@ function CartItemCard({ item }) {
     }
   };
 
+  const removeProductFromCart = async (productId) => {
+    try {
+      const jwtToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
+      const headers = new Headers();
+      headers.append("Authorization", "Bearer " + jwtToken);
+      const response = await fetch("/api/user/cart/" + productId, {
+        method: "DELETE",
+        headers,
+      });
+
+      dispatch({ type: "REFRESH_CART", payload: (await response.json()).cart });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -65,7 +82,9 @@ function CartItemCard({ item }) {
             +
           </button>
         </div>
-        <button>Remove From Cart</button>
+        <button onClick={() => removeProductFromCart(item._id)}>
+          Remove From Cart
+        </button>
         <button>Move to Wishlist</button>
       </div>
     </div>
@@ -100,18 +119,3 @@ function CartSummary() {
     </div>
   );
 }
-
-const removeProductFromCart = async (productId) => {
-  try {
-    const jwtToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
-    const headers = new Headers();
-    headers.append("Authorization", "Bearer " + jwtToken);
-    const response = await fetch("/api/user/cart/" + productId, {
-      method: "DELETE",
-      headers,
-    });
-  } catch (e) {
-    console.error(e);
-  }
-};
