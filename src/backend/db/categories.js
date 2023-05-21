@@ -8,20 +8,42 @@ import { v4 as uuid } from "uuid";
 export const categories = [
   {
     _id: uuid(),
-    categoryName: "fiction",
+    categoryName: "Action",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/en/4/4a/Call_of_Duty_Modern_Warfare_II_Key_Art.jpg",
     description:
-      "literature in the form of prose, especially novels, that describes imaginary events and people",
+      "Games that focus on fast-paced, exciting gameplay that requires quick reflexes and hand-eye coordination.",
   },
   {
     _id: uuid(),
-    categoryName: "non-fiction",
+    categoryName: "Adventure",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/en/c/c6/The_Legend_of_Zelda_Breath_of_the_Wild.jpg",
     description:
-      "Non-fiction is writing that gives information or describes real events, rather than telling a story.",
+      "Games that focus on exploration and discovery, often with a strong narrative element.",
   },
   {
     _id: uuid(),
-    categoryName: "horror",
+    categoryName: "Role-Playing",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/en/7/7c/Hogwarts-Legacy-cover.jpg",
     description:
-      "Meant to cause discomfort and fear for both the character and readers, horror writers often make use of supernatural and paranormal elements in morbid stories that are sometimes a little too realistic.",
+      "Games that allow players to take on the role of a character in a fictional world, typically with a focus on character development and storytelling.",
+  },
+  {
+    _id: uuid(),
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/en/9/93/StarCraft_box_art.jpg",
+    categoryName: "Strategy",
+    description:
+      "Games that require players to use their wits and strategic skills to outsmart their opponents.",
+  },
+  {
+    _id: uuid(),
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/en/7/7f/Sims4_Rebrand.png",
+    categoryName: "Simulation",
+    description:
+      "Games that simulate real-world activities, such as driving, flying, or building.",
   },
 ];
