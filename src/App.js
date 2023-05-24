@@ -9,6 +9,7 @@ import { CartContext } from "./contexts/CartContext";
 import { WishlistContext } from "./contexts/WishlistContext";
 import Home from "./pages/Home";
 import { CategoriesContext } from "./contexts/CategoriesContext";
+import { Login } from "./pages/Login";
 
 function App() {
   const { state, dispatch } = useContext(CartContext);
@@ -53,6 +54,7 @@ function App() {
   return (
     <div>
       <div>
+        <Link to="/">Home</Link> || <Link to="/login">Login</Link> ||{" "}
         <Link to="/cart">Cart {state.cartItems.length}</Link> ||{" "}
         <Link to="/wishlist">{`Wishlist(${wishlistState.items.length})`}</Link>
       </div>
@@ -61,6 +63,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<WishList />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
