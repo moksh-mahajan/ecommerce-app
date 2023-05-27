@@ -25,6 +25,11 @@ export default function AuthProvider({ children }) {
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const handleCheckAuthStatus = () => {
+    const token = localStorage.getItem("loginToken") ?? "";
+    dispatch({ type: "CHECK_AUTH_STATUS", payload: token });
+  };
+
   const handleLogin = async () => {
     try {
       const response = await fetch("/api/auth/login", {
@@ -52,7 +57,7 @@ export default function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ state, handleLogin }}>
+    <AuthContext.Provider value={{ state, handleLogin, handleCheckAuthStatus }}>
       {children}
     </AuthContext.Provider>
   );
