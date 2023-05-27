@@ -16,6 +16,7 @@ function App() {
   const {
     state: { encodedToken },
     handleCheckAuthStatus,
+    handleLogout,
   } = useContext(AuthContext);
   const { state, dispatch } = useContext(CartContext);
   const { state: wishlistState } = useContext(WishlistContext);
@@ -57,14 +58,19 @@ function App() {
     loadCategories();
   }, []);
 
-  const isLoggedIn = encodedToken.length != 0;
+  const isLoggedIn = encodedToken.length !== 0;
 
   return (
     <div>
       <div>
         <Link to="/">Home</Link> ||{" "}
-        <Link to="/login">{isLoggedIn ? "Logout" : "Login"}</Link> ||{" "}
-        <Link to="/cart">Cart {state.cartItems.length}</Link> ||{" "}
+        <Link
+          to={isLoggedIn ? null : "/login"}
+          onClick={isLoggedIn ? handleLogout : null}
+        >
+          {isLoggedIn ? "Logout" : "Login"}
+        </Link>{" "}
+        || <Link to="/cart">Cart {state.cartItems.length}</Link> ||{" "}
         <Link to="/wishlist">{`Wishlist(${wishlistState.items.length})`}</Link>
       </div>
       <Routes>

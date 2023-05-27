@@ -17,6 +17,12 @@ const authReducer = (state, action) => {
       return {
         encodedToken: action.payload,
       };
+
+    case "LOGOUT": {
+      return {
+        encodedToken: "",
+      };
+    }
   }
 };
 
@@ -28,6 +34,11 @@ export default function AuthProvider({ children }) {
   const handleCheckAuthStatus = () => {
     const token = localStorage.getItem("loginToken") ?? "";
     dispatch({ type: "CHECK_AUTH_STATUS", payload: token });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("loginToken");
+    dispatch({ type: "LOGOUT" });
   };
 
   const handleLogin = async () => {
@@ -57,7 +68,9 @@ export default function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ state, handleLogin, handleCheckAuthStatus }}>
+    <AuthContext.Provider
+      value={{ state, handleLogin, handleCheckAuthStatus, handleLogout }}
+    >
       {children}
     </AuthContext.Provider>
   );
