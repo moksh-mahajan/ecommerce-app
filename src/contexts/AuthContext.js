@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -20,6 +21,8 @@ const authReducer = (state, action) => {
 };
 
 export default function AuthProvider({ children }) {
+  const navigate = useNavigate();
+
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const handleLogin = async () => {
@@ -40,6 +43,8 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("loginToken", token);
 
         dispatch({ type: "LOGIN", payload: token });
+
+        navigate("/products");
       }
     } catch (e) {
       console.error(e);
