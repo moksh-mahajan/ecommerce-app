@@ -3,6 +3,8 @@ import Filters from "../components/Filters/Filters";
 import { FiltersContext } from "../contexts/FiltersContext";
 import { CartContext } from "../contexts/CartContext";
 import { WishlistContext } from "../contexts/WishlistContext";
+import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Products() {
   return (
@@ -157,6 +159,13 @@ function ProductList({ products }) {
     }
   };
 
+  const {
+    state: { encodedToken },
+  } = useContext(AuthContext);
+
+  const isLoggedIn = encodedToken.length !== 0;
+  const navigate = useNavigate();
+
   return (
     <ul style={{ display: "flex" }}>
       {products.map((product) => {
@@ -177,16 +186,20 @@ function ProductList({ products }) {
             <h5>{`₹${product.price}`}</h5>
             <button
               disabled={product._id === state.loadingProductId}
-              onClick={() => addProductToCart(product)}
+              onClick={() =>
+                isLoggedIn ? addProductToCart(product) : navigate("/login")
+              }
             >
               {isInCart ? "Go" : "Add"} to Cart
             </button>
 
             <button
               onClick={() =>
-                isInWishlist
-                  ? removeProductFromWishlist(product._id)
-                  : addProductToWishlist(product)
+                isLoggedIn
+                  ? isInWishlist
+                    ? removeProductFromWishlist(product._id)
+                    : addProductToWishlist(product)
+                  : navigate("/login")
               }
             >
               {isInWishlist ? "Remove From Wishlist" : "Add to Wishlist"}

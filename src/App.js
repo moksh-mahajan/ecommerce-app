@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import { CategoriesContext } from "./contexts/CategoriesContext";
 import { Login } from "./pages/Login";
 import { AuthContext } from "./contexts/AuthContext";
+import RequiresAuth from "./components/RequiresAuth";
 
 function App() {
   const {
@@ -76,8 +77,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<WishList />} />
+        <Route
+          path="/cart"
+          element={
+            <RequiresAuth>
+              <Cart />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <RequiresAuth>
+              <WishList />
+            </RequiresAuth>
+          }
+        />
         <Route path="/login" element={<Login />} />
       </Routes>
     </div>
