@@ -12,6 +12,7 @@ import { CategoriesContext } from "./contexts/CategoriesContext";
 import { Login } from "./pages/Login";
 import { AuthContext } from "./contexts/AuthContext";
 import RequiresAuth from "./components/RequiresAuth";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   const {
@@ -63,17 +64,7 @@ function App() {
 
   return (
     <div>
-      <div>
-        <Link to="/">Home</Link> ||{" "}
-        <Link
-          to={isLoggedIn ? null : "/login"}
-          onClick={isLoggedIn ? handleLogout : null}
-        >
-          {isLoggedIn ? "Logout" : "Login"}
-        </Link>{" "}
-        || <Link to="/cart">Cart {state.cartItems.length}</Link> ||{" "}
-        <Link to="/wishlist">{`Wishlist(${wishlistState.items.length})`}</Link>
-      </div>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
@@ -98,5 +89,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;
