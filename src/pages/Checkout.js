@@ -1,28 +1,11 @@
-import Radio from "../components/Radio";
-
-const addresses = [
-  {
-    fullName: "Moksh Mahajan",
-
-    pincode: "182101",
-    addressLine: "W No. 8, H. No. 57",
-    landMark: "Near Pandav Mandir",
-    city: "Udhampur",
-    state: "Jammu & Kashmir",
-  },
-
-  {
-    fullName: "Aman Gupta",
-
-    pincode: "182101",
-    addressLine: "W No. 9, H. No. 36",
-    landMark: "Arya Samaj Gali",
-    city: "Udhampur",
-    state: "Jammu & Kashmir",
-  },
-];
+import { useContext, useState } from "react";
+import { AddressContext } from "../contexts/AddressContext";
 
 export default function Checkout() {
+  const { addresses } = useContext(AddressContext);
+  const [isAddAddressVisible, setIsAddAddressVisible] = useState(false);
+
+  const toggleAddressForm = () => setIsAddAddressVisible(!isAddAddressVisible);
   return (
     <div>
       <h1>Checkout</h1>
@@ -34,18 +17,53 @@ export default function Checkout() {
             address;
           return (
             <div>
-              <input type="radio" name="address"/>
+              <input type="radio" name="address" />
               <label>{fullName}</label>
               <p>
                 {addressLine}, {landMark}, {city}, {state}, {pincode}
               </p>
+              <button>Edit Address</button>
+              <button>Delete Address</button>
             </div>
           );
         })}
 
-        <button>Add address</button>
+        <br />
+        <br />
+        <br />
+
+        <button onClick={toggleAddressForm}>Add address</button>
         <button>Use this address</button>
       </ul>
+      {isAddAddressVisible && <AddressForm onSave={toggleAddressForm} />}
+    </div>
+  );
+}
+
+function AddressForm({ onSave }) {
+  return (
+    <div>
+      <h1>Add a new Address</h1>
+      <div>
+        <input placeholder="Full Name"></input>
+      </div>
+      <div>
+        <input placeholder="Pincode"></input>
+      </div>
+      <div>
+        <input placeholder="Flat, House No., Building, Company, Apartment"></input>
+      </div>
+      <div>
+        <input placeholder="Landmark"></input>
+      </div>
+      <div>
+        <input placeholder="City"></input>
+      </div>
+      <div>
+        <input placeholder="State"></input>
+      </div>
+
+      <button onClick={onSave}>Save</button>
     </div>
   );
 }

@@ -3,7 +3,27 @@ import { createContext, useReducer } from "react";
 export const AddressContext = createContext();
 
 const initialState = {
-  addresses: [],
+  addresses: [
+    {
+      fullName: "Moksh Mahajan",
+
+      pincode: "182101",
+      addressLine: "W No. 8, H. No. 57",
+      landMark: "Near Pandav Mandir",
+      city: "Udhampur",
+      state: "Jammu & Kashmir",
+    },
+
+    {
+      fullName: "Aman Gupta",
+
+      pincode: "182101",
+      addressLine: "W No. 9, H. No. 36",
+      landMark: "Arya Samaj Gali",
+      city: "Udhampur",
+      state: "Jammu & Kashmir",
+    },
+  ],
 };
 
 const addressReducer = (state, action) => {
@@ -43,7 +63,7 @@ export function AddressProvider({ children }) {
   const [state, dispatch] = useReducer(addressReducer, initialState);
 
   return (
-    <AddressContext.Provider value={{ state, dispatch }}>
+    <AddressContext.Provider value={{ addresses: state.addresses, dispatch }}>
       {children}
     </AddressContext.Provider>
   );
