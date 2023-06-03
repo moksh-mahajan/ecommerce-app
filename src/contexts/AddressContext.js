@@ -5,6 +5,7 @@ export const AddressContext = createContext();
 const initialState = {
   addresses: [
     {
+      id: 0,
       fullName: "Moksh Mahajan",
 
       pincode: "182101",
@@ -15,6 +16,7 @@ const initialState = {
     },
 
     {
+      id: 1,
       fullName: "Aman Gupta",
 
       pincode: "182101",
@@ -62,8 +64,13 @@ const addressReducer = (state, action) => {
 export function AddressProvider({ children }) {
   const [state, dispatch] = useReducer(addressReducer, initialState);
 
+  const handleDeleteAddress = (addressId) =>
+    dispatch({ type: "REMOVE_ADDRESS", payload: addressId });
+
   return (
-    <AddressContext.Provider value={{ addresses: state.addresses, dispatch }}>
+    <AddressContext.Provider
+      value={{ addresses: state.addresses, handleDeleteAddress }}
+    >
       {children}
     </AddressContext.Provider>
   );
