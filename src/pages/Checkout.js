@@ -43,29 +43,61 @@ export default function Checkout() {
 }
 
 function AddressForm({ onSave }) {
+  const { addresses, handleAddAddress } = useContext(AddressContext);
+  const [address, setAddress] = useState({ id: addresses.length });
+
   return (
     <div>
       <h1>Add a new Address</h1>
       <div>
-        <input placeholder="Full Name"></input>
+        <input
+          placeholder="Full Name"
+          onChange={(e) =>
+            setAddress((address) => ({ ...address, fullName: e.target.value }))
+          }
+        />
       </div>
       <div>
-        <input placeholder="Pincode"></input>
+        <input
+          placeholder="Pincode"
+          onChange={(e) => setAddress({ ...address, pincode: e.target.value })}
+        />
       </div>
       <div>
-        <input placeholder="Flat, House No., Building, Company, Apartment"></input>
+        <input
+          placeholder="Flat, House No., Building, Company, Apartment"
+          onChange={(e) =>
+            setAddress({ ...address, addressLine: e.target.value })
+          }
+        />
       </div>
       <div>
-        <input placeholder="Landmark"></input>
+        <input
+          placeholder="Landmark"
+          onChange={(e) => setAddress({ ...address, landMark: e.target.value })}
+        />
       </div>
       <div>
-        <input placeholder="City"></input>
+        <input
+          placeholder="City"
+          onChange={(e) => setAddress({ ...address, city: e.target.value })}
+        />
       </div>
       <div>
-        <input placeholder="State"></input>
+        <input
+          placeholder="State"
+          onChange={(e) => setAddress({ ...address, state: e.target.value })}
+        />
       </div>
 
-      <button onClick={onSave}>Save</button>
+      <button
+        onClick={() => {
+          handleAddAddress(address);
+          onSave();
+        }}
+      >
+        Save
+      </button>
     </div>
   );
 }

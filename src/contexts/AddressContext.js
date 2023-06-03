@@ -7,7 +7,6 @@ const initialState = {
     {
       id: 0,
       fullName: "Moksh Mahajan",
-
       pincode: "182101",
       addressLine: "W No. 8, H. No. 57",
       landMark: "Near Pandav Mandir",
@@ -67,9 +66,16 @@ export function AddressProvider({ children }) {
   const handleDeleteAddress = (addressId) =>
     dispatch({ type: "REMOVE_ADDRESS", payload: addressId });
 
+  const handleAddAddress = (address) =>
+    dispatch({ type: "ADD_ADDRESS", payload: address });
+
   return (
     <AddressContext.Provider
-      value={{ addresses: state.addresses, handleDeleteAddress }}
+      value={{
+        addresses: state.addresses,
+        handleDeleteAddress,
+        handleAddAddress,
+      }}
     >
       {children}
     </AddressContext.Provider>
