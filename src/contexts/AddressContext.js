@@ -69,12 +69,19 @@ export function AddressProvider({ children }) {
   const handleAddAddress = (address) =>
     dispatch({ type: "ADD_ADDRESS", payload: address });
 
+  const handleEditAddress = (address) =>
+    dispatch({
+      type: "EDIT_ADDRESS",
+      payload: address,
+    });
+
   return (
     <AddressContext.Provider
       value={{
         addresses: state.addresses,
         handleDeleteAddress,
         handleAddAddress,
+        handleEditAddress,
       }}
     >
       {children}
