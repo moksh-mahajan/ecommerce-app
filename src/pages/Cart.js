@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const {
@@ -95,6 +96,7 @@ function CartItemCard({ item }) {
 }
 
 function CartSummary() {
+  const navigate = useNavigate();
   return (
     <div>
       <h4>PRICE DETAILS</h4>
@@ -118,7 +120,7 @@ function CartSummary() {
       </div>
       <hr />
       <p>You will save ₹1000 on this order</p>
-      <button>PLACE ORDER</button>
+      <button onClick={() => navigate("/checkout")}>PLACE ORDER</button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import "./Filters.css";
 import { FiltersContext } from "../../contexts/FiltersContext";
 import { CategoriesContext } from "../../contexts/CategoriesContext";
+import Radio from "../Radio";
 
 export default function Filters() {
   return (
@@ -149,11 +150,4 @@ function CheckBox({ label, onChange, value }) {
   );
 }
 
-function Radio({ label, name, onChange, value }) {
-  return (
-    <div className="filter-option">
-      <input type="radio" name={name} onChange={onChange} checked={value} />
-      <label>{label}</label>
-    </div>
-  );
-}
+

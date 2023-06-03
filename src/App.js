@@ -13,6 +13,7 @@ import { Login } from "./pages/Login";
 import { AuthContext } from "./contexts/AuthContext";
 import RequiresAuth from "./components/RequiresAuth";
 import Navbar from "./components/Navbar/Navbar";
+import Checkout from "./pages/Checkout";
 
 function App() {
   const {
@@ -66,6 +67,7 @@ function App() {
     <div>
       <Navbar />
       <Routes>
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route
@@ -89,7 +91,5 @@ function App() {
     </div>
   );
 }
-
-
 
 export default App;
