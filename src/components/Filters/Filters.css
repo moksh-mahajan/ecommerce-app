@@ -1,7 +1,104 @@
 .filters-container {
-    width: 15%;
+  width: 18%;
+  background-color: var(--accent-color2);
+  font-size: 1.6rem;
+  color: white;
+  padding: 2rem 1.6rem;
+  border-radius: 1.6rem;
+  margin: 0rem 2.4rem;
 }
 
 .filter-header {
-    display: flex;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+}
+
+.filter-header > h4 {
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+.filter-header > button {
+  color: var(--accent-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-section > h4 {
+  font-weight: 500;
+  margin-bottom: 1.6rem;
+}
+
+.filter-section {
+  margin-bottom: 3.2rem;
+}
+
+.filter-option {
+  margin-bottom: 0.8rem;
+  color: var(--grey-color);
+  display: flex;
+  gap: 0.8rem;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+}
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  border: 1px solid #555555;
+  border-radius: 3px;
+  background-color: var(--accent-color2);
+}
+input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid var(--accent-color);
+  border-width: 0 2px 2px 0;
+  color: var(--accent-color);
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 0.1rem solid currentColor;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--accent-color);
+}
+input[type="radio"]:checked::before {
+  transform: scale(1);
 }

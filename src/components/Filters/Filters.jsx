@@ -7,8 +7,9 @@ export default function Filters() {
   return (
     <div className="filters-container">
       <Header />
-      <PriceSlider />
       <CategorySelector />
+      <PriceSlider />
+
       <RatingSelector />
       <SortOrderSelector />
     </div>
@@ -21,7 +22,9 @@ function Header() {
   return (
     <div className="filter-header">
       <h4>Filters</h4>
-      <button onClick={() => dispatch({ type: "CLEAR_FILTERS" })}>Clear</button>
+      <button onClick={() => dispatch({ type: "CLEAR_FILTERS" })}>
+        Clear Filters
+      </button>
     </div>
   );
 }
@@ -30,7 +33,7 @@ function PriceSlider() {
   const { dispatch } = useContext(FiltersContext);
 
   return (
-    <div>
+    <div className="filter-section">
       <h4>Price</h4>
       <div>
         {" "}
@@ -59,7 +62,7 @@ function CategorySelector() {
   const categories = categoriesState.categories;
 
   return (
-    <div>
+    <div className="category-selector filter-section">
       <h4>Category</h4>
 
       {categories.map(({ categoryName, id }) => (
@@ -83,7 +86,7 @@ function RatingSelector() {
   } = useContext(FiltersContext);
 
   return (
-    <div>
+    <div className="filter-section">
       <h4>Rating</h4>
       <Radio
         label="4 Stars & above"
@@ -117,7 +120,7 @@ function SortOrderSelector() {
   const { dispatch } = useContext(FiltersContext);
 
   return (
-    <div>
+    <div className="filter-section">
       <h4>Sort by</h4>
       <Radio
         label="Price - Low to High"
@@ -139,7 +142,7 @@ function SortOrderSelector() {
 
 function CheckBox({ label, onChange, value }) {
   return (
-    <div>
+    <div className="filter-option">
       <input type="checkbox" onChange={onChange} checked={value} />
       <label>{label}</label>
     </div>
@@ -148,7 +151,7 @@ function CheckBox({ label, onChange, value }) {
 
 function Radio({ label, name, onChange, value }) {
   return (
-    <div>
+    <div className="filter-option">
       <input type="radio" name={name} onChange={onChange} checked={value} />
       <label>{label}</label>
     </div>

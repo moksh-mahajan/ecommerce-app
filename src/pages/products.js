@@ -1,10 +1,7 @@
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Filters from "../components/Filters/Filters";
 import { FiltersContext } from "../contexts/FiltersContext";
-import { CartContext } from "../contexts/CartContext";
-import { WishlistContext } from "../contexts/WishlistContext";
-import { AuthContext } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import ProductCard from "../components/card/ProductCard/ProductCard";
 
 export default function Products() {
   return (
@@ -90,122 +87,11 @@ function LoadingIndicator() {
 }
 
 function ProductList({ products }) {
-  const { state, dispatch } = useContext(CartContext);
-  const { state: wishlistState, dispatch: wishlistDispatch } =
-    useContext(WishlistContext);
-
-  const addProductToCart = async (product) => {
-    try {
-      const jwtToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
-      const headers = new Headers();
-      headers.append("Authorization", "Bearer " + jwtToken);
-      const response = await fetch("/api/user/cart", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ product }),
-      });
-
-      if (response.status === 201) {
-        dispatch({
-          type: "REFRESH_CART",
-          payload: (await response.json()).cart,
-        });
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const addProductToWishlist = async (product) => {
-    try {
-      const jwtToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
-      const headers = new Headers();
-      headers.append("Authorization", "Bearer " + jwtToken);
-      const response = await fetch("/api/user/wishlist", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ product }),
-      });
-
-      if (response.status === 201) {
-        wishlistDispatch({
-          type: "REFRESH_WISHLIST",
-          payload: (await response.json()).wishlist,
-        });
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const removeProductFromWishlist = async (productId) => {
-    try {
-      const jwtToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
-      const headers = new Headers();
-      headers.append("Authorization", "Bearer " + jwtToken);
-      const response = await fetch("/api/user/wishlist/" + productId, {
-        method: "DELETE",
-        headers,
-      });
-      wishlistDispatch({
-        type: "REFRESH_WISHLIST",
-        payload: (await response.json()).wishlist,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const {
-    state: { encodedToken },
-  } = useContext(AuthContext);
-
-  const isLoggedIn = encodedToken.length !== 0;
-  const navigate = useNavigate();
 
   return (
-    <ul style={{ display: "flex" }}>
+    <ul className="product-list-container">
       {products.map((product) => {
-        const isInCart = state.cartItems.some((item) => item.id === product.id);
-        const isInWishlist = wishlistState.items.some(
-          (item) => item.id === product.id
-        );
-
-        return (
-          <div key={product.id}>
-            <img
-              src={product.thumbnailUrl}
-              alt={product.name}
-              width="200"
-              height="250"
-            />
-            <h5>{product.name}</h5>
-            <h5>{`₹${product.price}`}</h5>
-            <button
-              disabled={product._id === state.loadingProductId}
-              onClick={() =>
-                isLoggedIn ? addProductToCart(product) : navigate("/login")
-              }
-            >
-              {isInCart ? "Go" : "Add"} to Cart
-            </button>
-
-            <button
-              onClick={() =>
-                isLoggedIn
-                  ? isInWishlist
-                    ? removeProductFromWishlist(product._id)
-                    : addProductToWishlist(product)
-                  : navigate("/login")
-              }
-            >
-              {isInWishlist ? "Remove From Wishlist" : "Add to Wishlist"}
-            </button>
-          </div>
-        );
+        return <ProductCard product={product} />;
       })}
     </ul>
   );

@@ -1,0 +1,23 @@
+.category-section{
+    display: flex;
+    justify-content: space-around;
+}
+.category-card{
+    width: 26rem;
+    background-color: var(--accent-color2);
+    border-radius: 1.8rem;
+    text-decoration: none;
+
+}
+.category-card > img {
+    width: 22rem;
+    height: 22rem;
+    border-radius: 1.8rem;
+    margin: 1.8rem 2rem 1rem 2rem;
+}
+.category-card > h5{
+    color: var(--accent-color);
+    font-size: 2rem;
+    font-weight: 400;
+    margin-left: 2rem;
+}

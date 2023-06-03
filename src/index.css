@@ -9,6 +9,7 @@
 :root {
   --background-color: #161a1e;
   --accent-color: #e58e27;
+  --accent-color2: #362d25;
   --grey-color: #9a9a9a;
   --white-color: #fbfbfb;
 }
@@ -19,5 +20,6 @@ html {
 
 body {
   font-family: "Inter", sans-serif;
+  color: var(--white-color);
   background-color: var(--background-color);
 }
