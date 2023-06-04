@@ -5,22 +5,25 @@ import { CartCard } from "../components";
 import "./Cart.css";
 
 export default function Cart() {
-  return (
-    <div className="cart-container">
-      <CartItems />
-      <CartSummary />
-    </div>
-  );
-}
-
-function CartItems() {
   const {
     state: { cartItems },
   } = useContext(CartContext);
   return (
+    <div className="cart-container">
+      <p>MY CART ({cartItems.length})</p>
+      <div style={{display: "flex",justifyContent: "space-around"}}>
+      <CartItems items={cartItems}/>
+      <CartSummary />
+      </div>
+    </div>
+  );
+}
+
+function CartItems({items}) {
+  
+  return (
     <ul className="cart-list">
-      MY CART ({cartItems.length})
-      {cartItems.map((item) => (
+      {items.map((item) => (
         <CartCard key={item.id} item={item} />
       ))}
     </ul>
@@ -69,13 +72,13 @@ function CartSummary() {
           <div>FREE</div>
         </div>
       </div>
-      <div className="price-breakup">
-        <h6>Total Amount</h6>
-        <h6>₹2000</h6>
+      <div className="price-breakup price-total">
+        <div>Total Amount</div>
+        <div>₹2000</div>
       </div>
       <button
         onClick={() => navigate("/checkout")}
-        className="btn-order btn btn-primary"
+        className="btn-order"
       >
         Place Order
       </button>

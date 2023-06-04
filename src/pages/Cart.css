@@ -1,7 +1,8 @@
-.cart-container{
-    display: flex;
-    justify-content: space-around;
-
+.cart-container > p{
+    font-size: 1.6rem;
+    text-align: center;
+    margin: 3rem;
+    
 }
 .cart-price-section {
     width: 25%;
@@ -16,11 +17,17 @@
 }
 .price-details > div {
     margin: 1.5rem 0;
+}
+.price-details > h6 {
     font-size: 1.6rem;
 }
 .price-breakup {
     display: flex;
     justify-content: space-between;
+    font-size: 1.6rem;
+}
+.price-total{
+    font-weight: 700;
 }
 .btn-order{ 
     width: 100%;
