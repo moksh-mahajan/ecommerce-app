@@ -71,15 +71,17 @@ export default function AuthProvider({ children }) {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async ({ email, password }) => {
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
         body: JSON.stringify({
-          email: "adarshbalika@gmail.com",
-          password: "adarshbalika",
+          email,
+          password,
         }),
       });
+
+      console.log(response);
 
       if (response.status === 200) {
         const data = await response.json();

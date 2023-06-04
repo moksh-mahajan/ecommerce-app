@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 
 export function Login() {
-  const { handleLogin } = useContext(AuthContext);
   const [authMode, setAuthMode] = useState("login");
 
   const toggleAuthMode = () =>
@@ -53,16 +52,25 @@ function SignUpForm({ onLogin }) {
 }
 
 function LoginForm({ onSignUp }) {
+  const [form, setForm] = useState({});
+  const { handleLogin } = useContext(AuthContext);
+
   return (
     <div>
       <h1>Log in</h1>
       <div>
-        <input placeholder="Email"></input>
+        <input
+          placeholder="Email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        ></input>
       </div>
       <div>
-        <input placeholder="Password"></input>
+        <input
+          placeholder="Password"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        ></input>
       </div>
-      <button>Login</button>
+      <button onClick={() => handleLogin(form)}>Login</button>
       <button onClick={onSignUp}>Don't have an account? Signup</button>
     </div>
   );
