@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
-import authImg from "../../assets/svgs/authImg.svg";
+import { AuthContext } from "../../../contexts/AuthContext";
+import authImg from "../../../assets/svgs/authImg.svg";
+import "./AuthForm.css";
 
 export default function SignUpForm({ onLogin }) {
   const [form, setForm] = useState({});
@@ -98,11 +99,11 @@ export default function SignUpForm({ onLogin }) {
         </div>
 
         <div className="auth-input auth-checkbox">
-        <input
-          onChange={() => setShowPassword((prev) => !prev)}
-          type="checkbox"
-        />
-        <label className="checkbox-label">Show Password</label>
+          <input
+            onChange={() => setShowPassword((prev) => !prev)}
+            type="checkbox"
+          />
+          <label className="checkbox-label">Show Password</label>
         </div>
         <div className="auth-footer">
           <button type="submit" className="auth-btn">

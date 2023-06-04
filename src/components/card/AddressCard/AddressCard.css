@@ -1,0 +1,32 @@
+.address-card {
+  width: 70rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 1.6rem;
+  padding: 2rem;
+  border: 1px solid black;
+  border-radius: 2rem;
+  border: 1px solid var(--accent-color);
+}
+.address-card-details > h4 {
+  font-weight: 600;
+  padding-bottom: 0.6rem;
+}
+.address-card-btn-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.6rem;
+}
+.address-card-btn {
+  background-color: var(--background-color);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+.address-card-edit-btn {
+  color: var(--accent-color);
+}
+.address-card-delete-btn {
+  color: var(--grey-color);
+}

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
-import authImg from "../../assets/svgs/authImg.svg";
-import "./authForm.css";
+import { AuthContext } from "../../../contexts/AuthContext";
+import authImg from "../../../assets/svgs/authImg.svg";
+import "./AuthForm.css";
 
 export default function LoginForm({ onSignUp }) {
   const [form, setForm] = useState({});
@@ -34,17 +34,11 @@ export default function LoginForm({ onSignUp }) {
       >
         <div className="auth-heading">
           <h3>Login</h3>
-          <img
-            className="auth-img"
-            src={authImg}
-            alt="authentication img"
-          />
+          <img className="auth-img" src={authImg} alt="authentication img" />
         </div>
 
         <div className="auth-input">
-          <label htmlFor="email">
-            Email
-          </label>
+          <label htmlFor="email">Email</label>
           <input
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             className="auth-field"
@@ -55,9 +49,7 @@ export default function LoginForm({ onSignUp }) {
         </div>
 
         <div className="auth-input">
-          <label htmlFor="password">
-            Password
-          </label>
+          <label htmlFor="password">Password</label>
           <input
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             className="auth-field"
@@ -71,12 +63,8 @@ export default function LoginForm({ onSignUp }) {
           <button type="submit" className="auth-btn">
             Login
           </button>
-          <span >Don't have an account?</span>
-          <button
-            onClick={onSignUp}
-            type="button"
-            className="auth-link"
-          >
+          <span>Don't have an account?</span>
+          <button onClick={onSignUp} type="button" className="auth-link">
             Signup
           </button>
         </div>

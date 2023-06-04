@@ -36,6 +36,7 @@
   letter-spacing: 1px;
   display: block;
   padding-bottom: 0.5rem;
+  text-align: left;
 }
 .auth-field {
   padding: 1.5rem;
@@ -69,6 +70,7 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 1.8rem;
+  margin-left: 0.8rem;
 }
 .auth-link:hover {
   text-decoration: underline;
