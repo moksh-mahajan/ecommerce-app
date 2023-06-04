@@ -13,7 +13,7 @@ const authReducer = (state, action) => {
       return {
         encodedToken: action.payload,
       };
-    case "LOGIN":
+    case "AUTH_SUCCESS":
       return {
         encodedToken: action.payload,
       };
@@ -41,6 +41,36 @@ export default function AuthProvider({ children }) {
     dispatch({ type: "LOGOUT" });
   };
 
+  const handleSignUp = async ({ email, password, firstName, lastName }) => {
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+          firstName,
+          lastName,
+        }),
+      });
+
+      if (response.status === 201) {
+        const data = await response.json();
+        const token = data.encodedToken;
+
+        console.log("Token gotten from signup: ", token);
+
+        // Save token to local storage
+        localStorage.setItem("loginToken", token);
+
+        dispatch({ type: "AUTH_SUCCESS", payload: token });
+
+        navigate("/products");
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const handleLogin = async () => {
     try {
       const response = await fetch("/api/auth/login", {
@@ -58,7 +88,7 @@ export default function AuthProvider({ children }) {
         // Save token to local storage
         localStorage.setItem("loginToken", token);
 
-        dispatch({ type: "LOGIN", payload: token });
+        dispatch({ type: "AUTH_SUCCESS", payload: token });
 
         navigate("/products");
       }
@@ -69,7 +99,13 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ state, handleLogin, handleCheckAuthStatus, handleLogout }}
+      value={{
+        state,
+        handleLogin,
+        handleCheckAuthStatus,
+        handleLogout,
+        handleSignUp,
+      }}
     >
       {children}
     </AuthContext.Provider>
