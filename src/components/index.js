@@ -6,6 +6,7 @@ import CartCard from "./card/CartCard/CartCard";
 import ProductCard from "./card/ProductCard/ProductCard";
 import WishlistItemCard from "./card/WishlistCard/WishlistCard";
 import AddressCard from "./card/AddressCard/AddressCard";
+import Footer from "./Footer/Footer";
 
 export {
   LoginForm,
@@ -16,4 +17,5 @@ export {
   Navbar,
   WishlistItemCard,
   AddressCard,
+  Footer,
 };

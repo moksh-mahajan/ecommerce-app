@@ -3,7 +3,9 @@ import { CategoriesContext } from "../contexts/CategoriesContext";
 import CategoryCard from "../components/card/CategoryCard/CategoryCard";
 import LandingImg from "../assets/images/landing.jpeg"
 import LandingImg2 from "../assets/images/landing2.jpg"
-import "./Home.css";
+import LandingImg3 from "../assets/images/landing3.jpg"
+import "./Home.css"
+import { Footer } from "../components";
 
 export default function Home() {
   const {
@@ -14,12 +16,16 @@ export default function Home() {
     <div>Loading...</div>
   ) : (
     <div className="">
-      <img alt="landing-img" src={LandingImg2} />
-    <ul className="category-section">
+      <img className="landing-img" alt="landing-img" src={LandingImg} />
+    <ul id="categories" className="category-section">
+      <h4>Our Categories</h4>
+      <div className="category-list">
       {categories.map((category) => (
         <CategoryCard category={category} />
       ))}
+      </div>
     </ul>
+    <Footer/>
     </div>
   );
 }

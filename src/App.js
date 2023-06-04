@@ -12,8 +12,10 @@ import { CategoriesContext } from "./contexts/CategoriesContext";
 import { Login } from "./pages/Login";
 import { AuthContext } from "./contexts/AuthContext";
 import RequiresAuth from "./components/RequiresAuth";
-import Navbar from "./components/Navbar/Navbar";
 import Checkout from "./pages/Checkout";
+import { Navbar } from "./components";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const {
@@ -66,6 +68,14 @@ function App() {
   return (
     <div>
       <Navbar />
+      <ToastContainer
+        style={{ fontSize: "1.4rem" }}
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+      />
       <Routes>
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/" element={<Home />} />

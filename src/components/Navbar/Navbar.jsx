@@ -31,14 +31,6 @@ export default function Navbar() {
           className={({ isActive }) =>
             "nav-link" + (!isActive ? " unselected" : "")
           }
-          to="/categories"
-        >
-          Categories
-        </NavLink>{" "}
-        <NavLink
-          className={({ isActive }) =>
-            "nav-link" + (!isActive ? " unselected" : "")
-          }
           to="/products"
         >
           Game Store

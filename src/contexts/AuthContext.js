@@ -1,5 +1,6 @@
 import { createContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -39,6 +40,7 @@ export default function AuthProvider({ children }) {
   const handleLogout = () => {
     localStorage.removeItem("loginToken");
     dispatch({ type: "LOGOUT" });
+    toast.success("Logged out!");
   };
 
   const handleSignUp = async ({ email, password, firstName, lastName }) => {
@@ -63,7 +65,7 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("loginToken", token);
 
         dispatch({ type: "AUTH_SUCCESS", payload: token });
-
+        toast.success("Signed up successfully!");
         navigate("/products");
       }
     } catch (e) {
@@ -91,7 +93,7 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("loginToken", token);
 
         dispatch({ type: "AUTH_SUCCESS", payload: token });
-
+      toast.success("Logged in successfully!");
         navigate("/products");
       }
     } catch (e) {

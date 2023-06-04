@@ -4,6 +4,8 @@ import { CartContext } from "../../../contexts/CartContext";
 import { WishlistContext } from "../../../contexts/WishlistContext";
 import { AuthContext } from "../../../contexts/AuthContext";
 import "./ProductCard.css";
+import { toast } from "react-toastify";
+
 
 export default function ProductCard({ product }) {
   const { state, dispatch } = useContext(CartContext);
@@ -34,6 +36,8 @@ export default function ProductCard({ product }) {
           type: "REFRESH_CART",
           payload: (await response.json()).cart,
         });
+      toast.success("Added to Cart!");
+
       }
     } catch (e) {
       console.error(e);
@@ -57,6 +61,7 @@ export default function ProductCard({ product }) {
           type: "REFRESH_WISHLIST",
           payload: (await response.json()).wishlist,
         });
+      toast.success("Added to Wishlist!");
       }
     } catch (e) {
       console.error(e);
@@ -77,6 +82,7 @@ export default function ProductCard({ product }) {
         type: "REFRESH_WISHLIST",
         payload: (await response.json()).wishlist,
       });
+      toast.success("Removed item from Cart!")
     } catch (e) {
       console.error(e);
     }
@@ -102,7 +108,11 @@ export default function ProductCard({ product }) {
             className="product-btn-cart"
             disabled={product._id === state.loadingProductId}
             onClick={() =>
-              isLoggedIn ? addProductToCart(product) : navigate("/login")
+              isLoggedIn
+                ? isInCart
+                  ? navigate("/cart")
+                  : addProductToCart(product)
+                : navigate("/login")
             }
           >
             {isInCart ? "Go" : "Add"} to Cart

@@ -19,7 +19,7 @@ export default function CategoryCard({ category }) {
       key={category.id}
     >
       <img src={category.imageUrl} alt={category.categoryName} height={240} />
-      <h5>{category.categoryName}</h5>
+      <h5 className="category-card-overlay"><p>{category.categoryName}</p></h5>
     </Link>
   );
 }

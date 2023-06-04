@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { WishlistContext } from "../../../contexts/WishlistContext";
 import "./WishlistCard.css";
+import { toast } from "react-toastify";
 
 export default function WishlistItemCard({ item }) {
     const { thumbnailUrl, name, price } = item;
@@ -47,6 +48,7 @@ export default function WishlistItemCard({ item }) {
           type: "REFRESH_WISHLIST",
           payload: (await response.json()).wishlist,
         });
+      toast.success("Removed item from Cart!");
       } catch (e) {
         console.error(e);
       }

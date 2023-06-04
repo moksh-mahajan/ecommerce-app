@@ -1,0 +1,18 @@
+.footer{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--accent-color2);
+    font-size: 1.6rem;
+    padding: 2rem;
+    bottom: 0;
+    margin-top: 12rem;
+}
+.footer-list{
+    display: flex;
+    gap: 2.8rem;
+    list-style: none;
+}
+.footer-icons{
+    color: var(--accent-color);
+    font-size: 2.4rem;
+}
