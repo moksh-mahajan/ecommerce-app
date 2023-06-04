@@ -1,105 +1,37 @@
 import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
+import { CartCard } from "../components";
+import "./Cart.css";
 
 export default function Cart() {
-  const {
-    state: { cartItems },
-  } = useContext(CartContext);
-
   return (
-    <div>
-      MY CART ({cartItems.length})
-      <CartItems items={cartItems} />
+    <div className="cart-container">
+      <CartItems />
       <CartSummary />
     </div>
   );
 }
 
-function CartItems({ items }) {
+function CartItems() {
+  const {
+    state: { cartItems },
+  } = useContext(CartContext);
   return (
-    <ul>
-      {items.map((item) => (
-        <CartItemCard key={item.id} item={item} />
+    <ul className="cart-list">
+      MY CART ({cartItems.length})
+      {cartItems.map((item) => (
+        <CartCard key={item.id} item={item} />
       ))}
     </ul>
-  );
-}
-
-function CartItemCard({ item }) {
-  const { thumbnailUrl, name, price, qty } = item;
-  const { dispatch } = useContext(CartContext);
-
-  const updateProductCount = async (productId, type) => {
-    try {
-      const jwtToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
-      const headers = new Headers();
-      headers.append("Authorization", "Bearer " + jwtToken);
-      const response = await fetch("/api/user/cart/" + productId, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ action: { type } }),
-      });
-
-      dispatch({ type: "REFRESH_CART", payload: (await response.json()).cart });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const removeProductFromCart = async (productId) => {
-    try {
-      const jwtToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4OWE1ZWQ5YS05NWFlLTQ3YjctYjM2Yy05NDYzODA0ZmYwYjMiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.uvMSr3DVt5yViVufdbbL6DwVeuF6FHlzEQDAb9QNb3M";
-      const headers = new Headers();
-      headers.append("Authorization", "Bearer " + jwtToken);
-      const response = await fetch("/api/user/cart/" + productId, {
-        method: "DELETE",
-        headers,
-      });
-
-      dispatch({ type: "REFRESH_CART", payload: (await response.json()).cart });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  return (
-    <div>
-      <div>
-        <img src={thumbnailUrl} alt={name} width="200" height="250" />
-      </div>
-      <div>
-        <label>{name}</label>
-        <label>₹{price}</label>
-        <div>
-          <label>Quantity: </label>{" "}
-          <button
-            disabled={qty === 1}
-            onClick={() => updateProductCount(item._id, "decrement")}
-          >
-            -
-          </button>
-          <label>{qty}</label>
-          <button onClick={() => updateProductCount(item._id, "increment")}>
-            +
-          </button>
-        </div>
-        <button onClick={() => removeProductFromCart(item._id)}>
-          Remove From Cart
-        </button>
-        <button>Move to Wishlist</button>
-      </div>
-    </div>
   );
 }
 
 function CartSummary() {
   const navigate = useNavigate();
   return (
-    <div>
-      <h4>PRICE DETAILS</h4>
+    <div className="cart-price-section">
+      {/* <h4>PRICE DETAILS</h4>
       <hr />
       <div>
         <label>Price (1 item)</label>
@@ -120,7 +52,33 @@ function CartSummary() {
       </div>
       <hr />
       <p>You will save ₹1000 on this order</p>
-      <button onClick={() => navigate("/checkout")}>PLACE ORDER</button>
+      <button onClick={() => navigate("/checkout")}>PLACE ORDER</button> */}
+
+      <div className="price-details">
+        <h6>PRICE DETAILS:</h6>
+        <div className="price-breakup">
+          <div>Total MRP</div>
+          <div>₹2000</div>
+        </div>
+        <div className="price-breakup">
+          <div>Discount on MRP</div>
+          <div>-₹1000</div>
+        </div>
+        <div className="price-breakup">
+          <div>Convenience Fee</div>
+          <div>FREE</div>
+        </div>
+      </div>
+      <div className="price-breakup">
+        <h6>Total Amount</h6>
+        <h6>₹2000</h6>
+      </div>
+      <button
+        onClick={() => navigate("/checkout")}
+        className="btn-order btn btn-primary"
+      >
+        Place Order
+      </button>
     </div>
   );
 }

@@ -3,6 +3,10 @@ nav {
   justify-content: space-between;
   padding: 2.4rem 3.2rem 2.4rem 2.4rem;
   font-size: 1.4rem;
+  position: sticky;
+  top: 0rem;
+  background-color: var(--background-color);
+
 }
 
 .nav-link {

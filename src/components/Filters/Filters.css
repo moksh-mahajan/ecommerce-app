@@ -1,5 +1,8 @@
 .filters-container {
   width: 18%;
+  height: 84vh;
+  position: sticky;
+  top: 8rem;
   background-color: var(--accent-color2);
   font-size: 1.6rem;
   color: white;

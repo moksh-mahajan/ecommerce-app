@@ -5,7 +5,7 @@ import ProductCard from "../components/card/ProductCard/ProductCard";
 
 export default function Products() {
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{display: "flex" }}>
       <Filters />
       <ProductsSection />
     </div>
@@ -71,11 +71,11 @@ function ProductsSection() {
   return isLoading ? (
     <LoadingIndicator />
   ) : (
-    <div>
-      <span style={{ display: "flex" }}>
+    <div className="product-section">
+      <div className="product-section-quantity">
         <label>Showing All Products </label>
         <label>{`(showing ${products.length} products)`}</label>
-      </span>
+      </div>
 
       <ProductList products={getFilteredProducts()} />
     </div>

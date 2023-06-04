@@ -1,3 +1,10 @@
+.product-section{
+    width: 82%;
+}
+.product-section-quantity{
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+}
 .product-list-container{
     display: flex;
     flex-wrap: wrap;
