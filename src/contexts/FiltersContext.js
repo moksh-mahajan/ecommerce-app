@@ -8,6 +8,7 @@ const initialFilterState = {
   selectedCategories: [],
   selectedPrice: null,
   searchText: "",
+  products: [],
 };
 
 const filterReducer = (state, action) => {
@@ -35,8 +36,18 @@ const filterReducer = (state, action) => {
     case "PRICE_CHANGED":
       return { ...state, selectedPrice: action.payload };
 
+    case "SET_PRODUCTS":
+      return { ...state, products: action.payload };
+
     case "CLEAR_FILTERS":
-      return initialFilterState;
+      return {
+        ...state,
+        sortOrder: null,
+        selectedRating: null,
+        selectedCategories: [],
+        selectedPrice: null,
+        searchText: "",
+      };
 
     default:
       return state;
@@ -46,8 +57,12 @@ const filterReducer = (state, action) => {
 export function FiltersProvider({ children }) {
   const [state, dispatch] = useReducer(filterReducer, initialFilterState);
 
+  const setProducts = (products) => {
+    dispatch({ type: "SET_PRODUCTS", payload: products });
+  };
+
   return (
-    <FiltersContext.Provider value={{ state, dispatch }}>
+    <FiltersContext.Provider value={{ state, dispatch, setProducts }}>
       {children}
     </FiltersContext.Provider>
   );

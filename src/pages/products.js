@@ -23,11 +23,12 @@ function ProductsSection() {
       selectedRating,
       selectedPrice,
       searchText,
+      products,
     },
+    setProducts,
   } = useContext(FiltersContext);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState([]);
 
   const loadProducts = async () => {
     try {

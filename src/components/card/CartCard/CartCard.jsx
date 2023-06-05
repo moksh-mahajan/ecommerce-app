@@ -1,10 +1,42 @@
 import { useContext } from "react";
 import { CartContext } from "../../../contexts/CartContext";
 import "./CartCard.css";
+import { toast } from "react-toastify";
+import { WishlistContext } from "../../../contexts/WishlistContext";
+import { FiltersContext } from "../../../contexts/FiltersContext";
 
 export default function CartCard({ item }) {
   const { thumbnailUrl, name, price, qty } = item;
   const { dispatch } = useContext(CartContext);
+  const { dispatch: wishlistDispatch } = useContext(WishlistContext);
+  const { state } = useContext(FiltersContext);
+
+  const moveToWishList = async (productId) => {
+    removeProductFromCart(productId);
+
+    const product = state.products.find(({ _id }) => _id === productId);
+
+    try {
+      const jwtToken = localStorage.getItem("loginToken") ?? "";
+      const headers = new Headers();
+      headers.append("Authorization", "Bearer " + jwtToken);
+      const response = await fetch("/api/user/wishlist", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ product }),
+      });
+
+      if (response.status === 201) {
+        wishlistDispatch({
+          type: "REFRESH_WISHLIST",
+          payload: (await response.json()).wishlist,
+        });
+        toast.success("Moved to Wishlist!");
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const updateProductCount = async (productId, type) => {
     try {
@@ -50,19 +82,27 @@ export default function CartCard({ item }) {
         <div className="cart-card-quantity">
           <span>Quantity: </span>{" "}
           <button
-          className="cart-card-quantity-btn"
+            className="cart-card-quantity-btn"
             disabled={qty === 1}
             onClick={() => updateProductCount(item._id, "decrement")}
           >
             -
           </button>
           <label>{qty}</label>
-          <button className="cart-card-quantity-btn" onClick={() => updateProductCount(item._id, "increment")}>
+          <button
+            className="cart-card-quantity-btn"
+            onClick={() => updateProductCount(item._id, "increment")}
+          >
             +
           </button>
         </div>
         <div className="cart-card-btn-container">
-          <button className="cart-card-btn cart-card-wishlist-btn">Move to Wishlist</button>
+          <button
+            onClick={() => moveToWishList(item._id)}
+            className="cart-card-btn cart-card-wishlist-btn"
+          >
+            Move to Wishlist
+          </button>
           <button
             className="cart-card-btn cart-card-remove-btn"
             onClick={() => removeProductFromCart(item._id)}
