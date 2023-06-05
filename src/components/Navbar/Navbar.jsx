@@ -5,6 +5,7 @@ import { CartContext } from "../../contexts/CartContext";
 import { WishlistContext } from "../../contexts/WishlistContext";
 
 import "./Navbar.css";
+import { FiltersContext } from "../../contexts/FiltersContext";
 
 export default function Navbar() {
   const {
@@ -12,10 +13,10 @@ export default function Navbar() {
     handleLogout,
   } = useContext(AuthContext);
   const { state } = useContext(CartContext);
+  const { dispatch } = useContext(FiltersContext);
   const { state: wishlistState } = useContext(WishlistContext);
 
   const isLoggedIn = encodedToken.length !== 0;
-
 
   return (
     <nav>
@@ -37,7 +38,13 @@ export default function Navbar() {
           Game Store
         </NavLink>
       </div>
-      <input className="search-input" placeholder="search" />
+      <input
+        className="search-input"
+        placeholder="search"
+        onChange={(e) =>
+          dispatch({ type: "SEARCH_TEXT_CHANGED", payload: e.target.value })
+        }
+      />
 
       <div>
         <NavLink

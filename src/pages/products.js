@@ -7,18 +7,23 @@ import { Footer } from "../components";
 export default function Products() {
   return (
     <>
-    <div style={{display: "flex" }}>
-      <Filters />
-      <ProductsSection />
-    </div>
-    <Footer />
+      <div style={{ display: "flex" }}>
+        <Filters />
+        <ProductsSection />
+      </div>
     </>
   );
 }
 
 function ProductsSection() {
   const {
-    state: { sortOrder, selectedCategories, selectedRating, selectedPrice },
+    state: {
+      sortOrder,
+      selectedCategories,
+      selectedRating,
+      selectedPrice,
+      searchText,
+    },
   } = useContext(FiltersContext);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +54,12 @@ function ProductsSection() {
       filteredProducts.sort((a, b) => a.price - b.price);
     } else if (sortOrder === "desc") {
       filteredProducts.sort((a, b) => b.price - a.price);
+    }
+
+    if (searchText.length !== 0) {
+      filteredProducts = filteredProducts.filter(({ name }) =>
+        name.toLowerCase().includes(searchText.toLowerCase())
+      );
     }
 
     if (selectedCategories.length !== 0) {
@@ -91,7 +102,6 @@ function LoadingIndicator() {
 }
 
 function ProductList({ products }) {
-
   return (
     <ul className="product-list-container">
       {products.map((product) => {

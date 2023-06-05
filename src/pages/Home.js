@@ -16,7 +16,7 @@ export default function Home() {
     <div>Loading...</div>
   ) : (
     <div className="">
-      <img className="landing-img" alt="landing-img" src={LandingImg} />
+      <img className="landing-img" alt="landing-img" src={LandingImg2} />
     <ul id="categories" className="category-section">
       <h4>Our Categories</h4>
       <div className="category-list">

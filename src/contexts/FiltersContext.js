@@ -7,10 +7,13 @@ const initialFilterState = {
   selectedRating: null,
   selectedCategories: [],
   selectedPrice: null,
+  searchText: "",
 };
 
 const filterReducer = (state, action) => {
   switch (action.type) {
+    case "SEARCH_TEXT_CHANGED":
+      return { ...state, searchText: action.payload };
     case "SORT_ORDER_CHANGED":
       return { ...state, sortOrder: action.payload };
 
@@ -49,5 +52,3 @@ export function FiltersProvider({ children }) {
     </FiltersContext.Provider>
   );
 }
-
-
