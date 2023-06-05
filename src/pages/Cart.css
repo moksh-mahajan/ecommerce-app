@@ -1,3 +1,16 @@
+.empty-cart{
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin-top: 6rem;
+}
+.empty-cart > img{
+    height: 20rem;
+    width: 24rem;
+}
 .cart-container > p{
     font-size: 1.6rem;
     text-align: center;

@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { CartContext } from "../../contexts/CartContext";
 import { WishlistContext } from "../../contexts/WishlistContext";
@@ -8,6 +8,21 @@ import "./Navbar.css";
 import { FiltersContext } from "../../contexts/FiltersContext";
 
 export default function Navbar() {
+  let timer = useRef();
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    clearTimeout(timer.current);
+    console.log(timer);
+    timer.current = setTimeout(() => {
+      dispatch({ type: "SEARCH_TEXT_CHANGED", payload: input });
+      if (input.trim().length > 0) {
+        navigate("/products");
+      }
+    }, 500);
+  }, [input]);
+
   const {
     state: { encodedToken },
     handleLogout,
@@ -41,9 +56,7 @@ export default function Navbar() {
       <input
         className="search-input"
         placeholder="search"
-        onChange={(e) =>
-          dispatch({ type: "SEARCH_TEXT_CHANGED", payload: e.target.value })
-        }
+        onChange={(e) => setInput(e.target.value)}
       />
 
       <div>

@@ -93,8 +93,11 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("loginToken", token);
 
         dispatch({ type: "AUTH_SUCCESS", payload: token });
-      toast.success("Logged in successfully!");
+        toast.success("Logged in successfully!");
         navigate("/products");
+      }
+      if (response.status === 404) {
+        toast.error("Incorrect email or password!");
       }
     } catch (e) {
       console.error(e);

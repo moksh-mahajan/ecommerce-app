@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { WishlistContext } from "../contexts/WishlistContext";
 import { WishlistItemCard } from "../components";
+import EmptyCart from "../assets/svgs/emptyCart.svg";
 
 export default function WishList() {
   const {
@@ -9,8 +10,17 @@ export default function WishList() {
 
   return (
     <div className="wishlist-container">
-      <p>MY WISHLIST ({items.length})</p>
-      <WishListItems items={items} />
+      {items.length === 0 ? (
+        <div className="empty-cart">
+          <p>Your wishlist is empty!</p>
+          <img src={EmptyCart} alt="empty cart" />
+        </div>
+      ) : (
+        <>
+          <p>MY WISHLIST ({items.length})</p>
+          <WishListItems items={items} />
+        </>
+      )}
     </div>
   );
 }
@@ -24,5 +34,3 @@ function WishListItems({ items }) {
     </ul>
   );
 }
-
-

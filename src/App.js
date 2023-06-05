@@ -72,7 +72,7 @@ function App() {
       <Navbar />
       <ToastContainer
         style={{ fontSize: "1.4rem" }}
-        position="top-right"
+        position="bottom-right"
         autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}

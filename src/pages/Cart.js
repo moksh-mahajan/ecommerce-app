@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { CartCard } from "../components";
+import EmptyCart from "../assets/svgs/emptyCart.svg";
 import "./Cart.css";
 
 export default function Cart() {
@@ -10,11 +11,20 @@ export default function Cart() {
   } = useContext(CartContext);
   return (
     <div className="cart-container">
-      <p>MY CART ({cartItems.length})</p>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <CartItems items={cartItems} />
-        <CartSummary />
-      </div>
+      {cartItems.length === 0 ? (
+        <div className="empty-cart">
+          <p>Your cart is empty!</p>
+          <img src={EmptyCart} alt="empty cart" />
+        </div>
+      ) : (
+        <>
+          <p>MY CART ({cartItems.length})</p>
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <CartItems items={cartItems} />
+            <CartSummary />
+          </div>
+        </>
+      )}
     </div>
   );
 }
