@@ -11,16 +11,15 @@ export default function Cart() {
   return (
     <div className="cart-container">
       <p>MY CART ({cartItems.length})</p>
-      <div style={{display: "flex",justifyContent: "space-around"}}>
-      <CartItems items={cartItems}/>
-      <CartSummary />
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <CartItems items={cartItems} />
+        <CartSummary />
       </div>
     </div>
   );
 }
 
-function CartItems({items}) {
-  
+function CartItems({ items }) {
   return (
     <ul className="cart-list">
       {items.map((item) => (
@@ -32,6 +31,21 @@ function CartItems({items}) {
 
 function CartSummary() {
   const navigate = useNavigate();
+
+  const {
+    state: { cartItems },
+  } = useContext(CartContext);
+
+  const totalMrp = cartItems.reduce(
+    (acc, { price, qty }) => acc + price * qty,
+    0
+  );
+
+  const discount = 0.15 * totalMrp;
+  const convenienceFee = 99;
+
+  const finalAmount = totalMrp + convenienceFee - discount;
+
   return (
     <div className="cart-price-section">
       {/* <h4>PRICE DETAILS</h4>
@@ -61,25 +75,22 @@ function CartSummary() {
         <h6>PRICE DETAILS:</h6>
         <div className="price-breakup">
           <div>Total MRP</div>
-          <div>₹2000</div>
+          <div>₹{totalMrp}</div>
         </div>
         <div className="price-breakup">
-          <div>Discount on MRP</div>
-          <div>-₹1000</div>
+          <div>Discount (15% on MRP)</div>
+          <div>-₹{`${discount.toFixed(2)}`}</div>
         </div>
         <div className="price-breakup">
           <div>Convenience Fee</div>
-          <div>FREE</div>
+          <div>₹{convenienceFee}</div>
         </div>
       </div>
       <div className="price-breakup price-total">
         <div>Total Amount</div>
-        <div>₹2000</div>
+        <div>₹{finalAmount}</div>
       </div>
-      <button
-        onClick={() => navigate("/checkout")}
-        className="btn-order"
-      >
+      <button onClick={() => navigate("/checkout")} className="btn-order">
         Place Order
       </button>
     </div>
