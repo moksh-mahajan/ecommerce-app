@@ -2,7 +2,6 @@ import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { FiltersProvider } from "./contexts/FiltersContext";
 import Cart from "./pages/Cart";
-// import Products from "./pages/Products";
 import WishList from "./pages/WishList";
 import { useContext, useEffect } from "react";
 import { CartContext } from "./contexts/CartContext";
@@ -17,6 +16,8 @@ import { Navbar } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Products from "./pages/Products";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import OrderSummary from "./pages/OrderSummary/OrderSummary";
 
 function App() {
   const {
@@ -79,6 +80,7 @@ function App() {
       />
       <Routes>
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/checkout/orderSummary" element={<OrderSummary />} />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route
@@ -98,6 +100,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/productDetails/:id" element={<ProductDetails />} />
       </Routes>
     </div>
   );

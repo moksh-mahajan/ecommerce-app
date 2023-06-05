@@ -15,7 +15,7 @@
     background-color: var(--accent-color2);
     border-radius: 1.8rem;
 }
-.product-card > img {
+.product-card-img {
     width: 22rem;
     height: 26rem;
     object-fit: cover;
@@ -45,7 +45,7 @@
 .product-btn-container{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    padding-bottom: 2rem;
 }
 .product-btn-cart{
     width: 16rem;

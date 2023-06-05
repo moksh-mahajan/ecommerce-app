@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../../../contexts/CartContext";
 import { WishlistContext } from "../../../contexts/WishlistContext";
 import { AuthContext } from "../../../contexts/AuthContext";
 import "./ProductCard.css";
 import { toast } from "react-toastify";
-
 
 export default function ProductCard({ product }) {
   const { state, dispatch } = useContext(CartContext);
@@ -36,8 +35,7 @@ export default function ProductCard({ product }) {
           type: "REFRESH_CART",
           payload: (await response.json()).cart,
         });
-      toast.success("Added to Cart!");
-
+        toast.success("Added to Cart!");
       }
     } catch (e) {
       console.error(e);
@@ -61,7 +59,7 @@ export default function ProductCard({ product }) {
           type: "REFRESH_WISHLIST",
           payload: (await response.json()).wishlist,
         });
-      toast.success("Added to Wishlist!");
+        toast.success("Added to Wishlist!");
       }
     } catch (e) {
       console.error(e);
@@ -82,7 +80,7 @@ export default function ProductCard({ product }) {
         type: "REFRESH_WISHLIST",
         payload: (await response.json()).wishlist,
       });
-      toast.success("Removed item from Cart!")
+      toast.success("Removed item from Cart!");
     } catch (e) {
       console.error(e);
     }
@@ -93,49 +91,56 @@ export default function ProductCard({ product }) {
     (item) => item.id === product.id
   );
   return (
-    <div className="product-card" key={product.id}>
-      <img
-        src={product.thumbnailUrl}
-        alt={product.name}
-        width="200"
-        height="250"
-      />
-      <div className="product-description">
-        <h5>{product.name}</h5>
-        <p>{`₹${product.price}`}</p>
-        <div className="product-btn-container">
-          <button
-            className="product-btn-cart"
-            disabled={product._id === state.loadingProductId}
-            onClick={() =>
-              isLoggedIn
-                ? isInCart
-                  ? navigate("/cart")
-                  : addProductToCart(product)
-                : navigate("/login")
-            }
-          >
-            {isInCart ? "Go" : "Add"} to Cart
-          </button>
+    
+      <div className="product-card" key={product.id}>
+        <Link
+      style={{ textDecoration: "none" }}
+      to={`/productDetails/${product._id}`}
+    >
+        <img
+        className="product-card-img"
+          src={product.thumbnailUrl}
+          alt={product.name}
+          width="200"
+          height="250"
+        />
+        </Link>
+        <div className="product-description">
+          <h5>{product.name}</h5>
+          <p>{`₹${product.price}`}</p>
+          <div className="product-btn-container">
+            <button
+              className="product-btn-cart"
+              disabled={product._id === state.loadingProductId}
+              onClick={() =>
+                isLoggedIn
+                  ? isInCart
+                    ? navigate("/cart")
+                    : addProductToCart(product)
+                  : navigate("/login")
+              }
+            >
+              {isInCart ? "Go" : "Add"} to Cart
+            </button>
 
-          <button
-            className="product-btn-wishlist"
-            onClick={() =>
-              isLoggedIn
-                ? isInWishlist
-                  ? removeProductFromWishlist(product._id)
-                  : addProductToWishlist(product)
-                : navigate("/login")
-            }
-          >
-            {isInWishlist ? (
-              <i className="fa-solid fa-heart"></i>
-            ) : (
-              <i class="fa-regular fa-heart"></i>
-            )}
-          </button>
+            <button
+              className="product-btn-wishlist"
+              onClick={() =>
+                isLoggedIn
+                  ? isInWishlist
+                    ? removeProductFromWishlist(product._id)
+                    : addProductToWishlist(product)
+                  : navigate("/login")
+              }
+            >
+              {isInWishlist ? (
+                <i className="fa-solid fa-heart"></i>
+              ) : (
+                <i class="fa-regular fa-heart"></i>
+              )}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
   );
 }
