@@ -1,10 +1,11 @@
 nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 2.4rem 3.2rem 2.4rem 2.4rem;
   font-size: 1.4rem;
-  /* position: sticky;
-  top: 0rem; */
+  position: sticky;
+  top: 0rem;
   background-color: var(--background-color);
 
 }
@@ -45,4 +46,14 @@ nav > div:first-child {
 nav > div:last-child {
   display: flex;
   gap: 3.2rem;
+}
+.search-input{
+  padding: 1rem;
+  background-color: var(--background-color);
+  border: 1px solid var(--accent-color);
+  color: var(--white-color);
+  outline: none;
+  width: 40%;
+  border-radius: 2rem;
+  font-size: 1.4rem;
 }

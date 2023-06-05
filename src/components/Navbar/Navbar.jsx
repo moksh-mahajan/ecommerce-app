@@ -16,6 +16,7 @@ export default function Navbar() {
 
   const isLoggedIn = encodedToken.length !== 0;
 
+
   return (
     <nav>
       <div>
@@ -36,6 +37,7 @@ export default function Navbar() {
           Game Store
         </NavLink>
       </div>
+      <input className="search-input" placeholder="search" />
 
       <div>
         <NavLink
