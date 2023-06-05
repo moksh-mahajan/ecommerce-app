@@ -73,7 +73,7 @@ export default function Navbar() {
         >
           {" "}
           <i className="fa-solid fa-heart"></i>
-          <span>{1}</span>
+          <span>{wishlistState.items.length}</span>
         </NavLink>
       </div>
     </nav>
