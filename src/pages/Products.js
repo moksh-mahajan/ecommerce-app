@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import Filters from "../components/Filters/Filters";
 import { FiltersContext } from "../contexts/FiltersContext";
 import ProductCard from "../components/card/ProductCard/ProductCard";
-import { Footer } from "../components";
 
 export default function Products() {
   return (
