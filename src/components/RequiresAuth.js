@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts";
 
 export default function RequiresAuth({ children }) {
   const location = useLocation();

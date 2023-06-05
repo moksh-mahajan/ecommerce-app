@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AddressContext } from "../../../contexts/AddressContext";
+import { AddressContext } from "../../../contexts";
 import "./AddressCard.css";
 
 export default function AddressCard({

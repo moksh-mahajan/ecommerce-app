@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import "./ProductDetails.css";
-import { CartContext } from "../../contexts/CartContext";
-import { WishlistContext } from "../../contexts/WishlistContext";
+import { CartContext, WishlistContext } from "../../contexts";
 
 export default function ProductDetails() {
   const { id: productId } = useParams();
@@ -10,7 +9,6 @@ export default function ProductDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const { addProductToCart } = useContext(CartContext);
   const { addProductToWishlist } = useContext(WishlistContext);
-  //   console.log(productId);
 
   const getProduct = async () => {
     try {

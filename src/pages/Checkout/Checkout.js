@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { AddressContext } from "../contexts/AddressContext";
-import { AddressCard, AddressForm } from "../components";
+import { Link } from "react-router-dom";
+import { AddressCard, AddressForm } from "../../components";
+import { AddressContext } from "../../contexts";
 import "./Checkout.css";
-import { Link, Navigate } from "react-router-dom";
 
 export default function Checkout() {
   const { addresses } = useContext(AddressContext);
@@ -39,7 +39,7 @@ export default function Checkout() {
             <i class="fa-solid fa-plus"></i>Add address
           </button>
           <Link to="./orderSummary">
-          <button className="address-btn">Use this address</button>
+            <button className="address-btn">Use this address</button>
           </Link>
         </div>
       </ul>

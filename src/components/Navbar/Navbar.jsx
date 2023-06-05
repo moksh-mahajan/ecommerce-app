@@ -1,11 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
-import { CartContext } from "../../contexts/CartContext";
-import { WishlistContext } from "../../contexts/WishlistContext";
-
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import { FiltersContext } from "../../contexts/FiltersContext";
+import { AuthContext, CartContext, FiltersContext, WishlistContext } from "../../contexts";
 
 export default function Navbar() {
   let timer = useRef();

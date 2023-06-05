@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { FiltersContext } from "../../../contexts/FiltersContext";
 import { Link } from "react-router-dom";
+import { FiltersContext } from "../../../contexts";
 import "./CategoryCard.css";
 
 export default function CategoryCard({ category }) {
@@ -19,7 +19,9 @@ export default function CategoryCard({ category }) {
       key={category.id}
     >
       <img src={category.imageUrl} alt={category.categoryName} height={240} />
-      <h5 className="category-card-overlay"><p>{category.categoryName}</p></h5>
+      <h5 className="category-card-overlay">
+        <p>{category.categoryName}</p>
+      </h5>
     </Link>
   );
 }

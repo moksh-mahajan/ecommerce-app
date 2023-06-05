@@ -5,12 +5,14 @@ import App from "./App";
 import { makeServer } from "./server";
 
 import { BrowserRouter as Router } from "react-router-dom";
-import { CartProvider } from "./contexts/CartContext";
-import { WishlistProvider } from "./contexts/WishlistContext";
-import { CategoriesProvider } from "./contexts/CategoriesContext";
-import { FiltersProvider } from "./contexts/FiltersContext";
-import AuthProvider from "./contexts/AuthContext";
-import { AddressProvider } from "./contexts/AddressContext";
+import {
+  CartProvider,
+  WishlistProvider,
+  CategoriesProvider,
+  FiltersProvider,
+  AuthProvider,
+  AddressProvider,
+} from "./contexts";
 
 // Call make Server
 makeServer();
@@ -34,5 +36,5 @@ root.render(
         </WishlistProvider>
       </CartProvider>
     </Router>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { WishlistContext } from "../contexts/WishlistContext";
 import { WishlistItemCard } from "../components";
 import EmptyCart from "../assets/svgs/emptyCart.svg";
+import { WishlistContext } from "../contexts";
 
 export default function WishList() {
   const {

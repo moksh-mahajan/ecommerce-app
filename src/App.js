@@ -1,32 +1,32 @@
-import { Link, Route, Routes } from "react-router-dom";
-import "./App.css";
-import { FiltersProvider } from "./contexts/FiltersContext";
-import Cart from "./pages/Cart";
-import WishList from "./pages/WishList";
 import { useContext, useEffect } from "react";
-import { CartContext } from "./contexts/CartContext";
-import { WishlistContext } from "./contexts/WishlistContext";
-import Home from "./pages/Home";
-import { CategoriesContext } from "./contexts/CategoriesContext";
-import { Login } from "./pages/Login";
-import { AuthContext } from "./contexts/AuthContext";
-import RequiresAuth from "./components/RequiresAuth";
-import Checkout from "./pages/Checkout";
-import { Navbar } from "./components";
+import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Products from "./pages/Products";
-import ProductDetails from "./pages/ProductDetails/ProductDetails";
-import OrderSummary from "./pages/OrderSummary/OrderSummary";
+import "./App.css";
+
+import { Navbar, RequiresAuth } from "./components";
+import {
+  Cart,
+  Checkout,
+  Home,
+  Login,
+  OrderSummary,
+  ProductDetails,
+  Products,
+  WishList,
+} from "./pages";
+import {
+  AuthContext,
+  CategoriesContext,
+} from "./contexts";
 
 function App() {
   const {
     state: { encodedToken },
     handleCheckAuthStatus,
-    handleLogout,
   } = useContext(AuthContext);
-  const { state, dispatch } = useContext(CartContext);
-  const { state: wishlistState } = useContext(WishlistContext);
+  // const { state, dispatch } = useContext(CartContext);
+  // const { state: wishlistState } = useContext(WishlistContext);
 
   const { dispatch: categoriesDispatch } = useContext(CategoriesContext);
 

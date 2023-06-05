@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import "./Filters.css";
-import { FiltersContext } from "../../contexts/FiltersContext";
-import { CategoriesContext } from "../../contexts/CategoriesContext";
 import Radio from "../Radio";
+import { CategoriesContext, FiltersContext } from "../../contexts";
 
 export default function Filters() {
   return (

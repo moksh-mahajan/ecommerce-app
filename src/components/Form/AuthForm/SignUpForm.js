@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../../contexts/AuthContext";
 import authImg from "../../../assets/svgs/authImg.svg";
+import { AuthContext } from "../../../contexts";
 import "./AuthForm.css";
 
 export default function SignUpForm({ onLogin }) {
@@ -10,34 +10,6 @@ export default function SignUpForm({ onLogin }) {
 
   return (
     <div className="auth-section">
-      {/* <h1>Sign Up</h1>
-      <div>
-        <input
-          placeholder="First Name"
-          onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-        />
-      </div>
-      <div>
-        <input
-          placeholder="Last Name"
-          onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-        />
-      </div>
-      <div>
-        <input
-          placeholder="Email"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-      </div>
-      <div>
-        <input
-          placeholder="Password"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-      </div>
-      <button onClick={() => handleSignUp(form)}>Create Account</button>
-      <button onClick={onLogin}>Already have an account? Login</button> */}
-
       <form
         onSubmit={(e) => {
           e.preventDefault();

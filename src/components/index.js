@@ -2,11 +2,14 @@ import LoginForm from "./Form/AuthForm/LoginForm";
 import SignUpForm from "./Form/AuthForm/SignUpForm";
 import AddressForm from "./Form/AddressForm/AddressForm";
 import Navbar from "./Navbar/Navbar";
-import CartCard from "./card/CartCard/CartCard";
-import ProductCard from "./card/ProductCard/ProductCard";
-import WishlistItemCard from "./card/WishlistCard/WishlistCard";
-import AddressCard from "./card/AddressCard/AddressCard";
+import CartCard from "./Cards/CartCard/CartCard";
+import ProductCard from "./Cards/ProductCard/ProductCard";
+import WishlistItemCard from "./Cards/WishlistCard/WishlistCard";
+import AddressCard from "./Cards/AddressCard/AddressCard";
+import CategoryCard from "./Cards/CategoryCard/CategoryCard"
 import Footer from "./Footer/Footer";
+import RequiresAuth from "./RequiresAuth";
+import Filters from "./Filters/Filters";
 
 export {
   LoginForm,
@@ -17,5 +20,8 @@ export {
   Navbar,
   WishlistItemCard,
   AddressCard,
+  CategoryCard,
   Footer,
+  RequiresAuth,
+  Filters
 };

@@ -27,7 +27,7 @@ const authReducer = (state, action) => {
   }
 };
 
-export default function AuthProvider({ children }) {
+export function AuthProvider({ children }) {
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(authReducer, initialState);

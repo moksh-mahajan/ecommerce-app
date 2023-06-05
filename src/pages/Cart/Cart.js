@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { CartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
-import { CartCard } from "../components";
-import EmptyCart from "../assets/svgs/emptyCart.svg";
+import EmptyCart from "../../assets/svgs/emptyCart.svg";
 import "./Cart.css";
+import { CartContext } from "../../contexts";
+import { CartCard } from "../../components";
 
 export default function Cart() {
   const {
@@ -58,29 +58,6 @@ function CartSummary() {
 
   return (
     <div className="cart-price-section">
-      {/* <h4>PRICE DETAILS</h4>
-      <hr />
-      <div>
-        <label>Price (1 item)</label>
-        <label>₹2000</label>
-      </div>
-      <div>
-        <label>Discount</label>
-        <label>-₹1000</label>
-      </div>
-      <div>
-        <label>Delivery Charges</label>
-        <label>₹499</label>
-      </div>
-      <hr />
-      <div>
-        <label>TOTAL AMOUNT</label>
-        <label>₹2499</label>
-      </div>
-      <hr />
-      <p>You will save ₹1000 on this order</p>
-      <button onClick={() => navigate("/checkout")}>PLACE ORDER</button> */}
-
       <div className="price-details">
         <h6>PRICE DETAILS:</h6>
         <div className="price-breakup">

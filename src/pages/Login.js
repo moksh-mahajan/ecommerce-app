@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LoginForm, SignUpForm } from "../components";
 
-export function Login() {
+export default function Login() {
   const [authMode, setAuthMode] = useState("login");
 
   const toggleAuthMode = () =>

@@ -1,10 +1,8 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CartContext } from "../../../contexts/CartContext";
-import { WishlistContext } from "../../../contexts/WishlistContext";
-import { AuthContext } from "../../../contexts/AuthContext";
-import "./ProductCard.css";
 import { toast } from "react-toastify";
+import { AuthContext, CartContext, WishlistContext } from "../../../contexts";
+import "./ProductCard.css";
 
 export default function ProductCard({ product }) {
   const { state, addProductToCart } = useContext(CartContext);

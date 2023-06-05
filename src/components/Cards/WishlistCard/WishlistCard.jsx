@@ -1,9 +1,7 @@
 import { useContext } from "react";
-import { WishlistContext } from "../../../contexts/WishlistContext";
-import "./WishlistCard.css";
 import { toast } from "react-toastify";
-import { FiltersContext } from "../../../contexts/FiltersContext";
-import { CartContext } from "../../../contexts/CartContext";
+import { CartContext, FiltersContext, WishlistContext } from "../../../contexts";
+import "./WishlistCard.css";
 
 export default function WishlistItemCard({ item }) {
   const { thumbnailUrl, name, price } = item;

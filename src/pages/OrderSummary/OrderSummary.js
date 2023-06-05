@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import { CartContext } from "../../contexts/CartContext";
 import "./OrderSummary.css";
-import { AddressContext } from "../../contexts/AddressContext";
+import { AddressContext, CartContext } from "../../contexts";
 
 export default function OrderSummary() {
   const {
