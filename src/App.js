@@ -2,7 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { FiltersProvider } from "./contexts/FiltersContext";
 import Cart from "./pages/Cart";
-import Products from "./pages/Products";
+// import Products from "./pages/Products";
 import WishList from "./pages/WishList";
 import { useContext, useEffect } from "react";
 import { CartContext } from "./contexts/CartContext";
@@ -16,6 +16,7 @@ import Checkout from "./pages/Checkout";
 import { Navbar } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Products from "./pages/Products";
 
 function App() {
   const {
