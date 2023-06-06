@@ -25,6 +25,8 @@ const initialState = {
       state: "Jammu & Kashmir",
     },
   ],
+
+  selectedAddress: null,
 };
 
 const addressReducer = (state, action) => {
@@ -32,6 +34,7 @@ const addressReducer = (state, action) => {
     case "ADD_ADDRESS":
       const newAddress = action.payload;
       return {
+        ...state,
         addresses: [...state.addresses, newAddress],
       };
 
@@ -44,15 +47,23 @@ const addressReducer = (state, action) => {
       newAddresses[index] = updatedAddress;
 
       return {
+        ...state,
         addresses: newAddresses,
       };
 
     case "REMOVE_ADDRESS":
       const addressIdToBeRemoved = action.payload;
       return {
+        ...state,
         addresses: state.addresses.filter(
           ({ id }) => id != addressIdToBeRemoved
         ),
+      };
+
+    case "SELECT_ADDRESS":
+      return {
+        ...state,
+        selectedAddress: action.payload,
       };
 
     default:
@@ -75,13 +86,21 @@ export function AddressProvider({ children }) {
       payload: address,
     });
 
+  const handleSelectAddress = (address) =>
+    dispatch({
+      type: "SELECT_ADDRESS",
+      payload: address,
+    });
+
   return (
     <AddressContext.Provider
       value={{
         addresses: state.addresses,
+        selectedAddress: state.selectedAddress,
         handleDeleteAddress,
         handleAddAddress,
         handleEditAddress,
+        handleSelectAddress,
       }}
     >
       {children}

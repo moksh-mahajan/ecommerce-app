@@ -8,12 +8,17 @@ export default function AddressCard({
   setEditIndex,
   toggleAddressForm,
 }) {
-  const { handleDeleteAddress } = useContext(AddressContext);
+  const { handleDeleteAddress, handleSelectAddress } =
+    useContext(AddressContext);
 
   const { id, fullName, addressLine, landMark, city, state, pincode } = address;
   return (
     <div className="address-card">
-      <input type="radio" name="address" />
+      <input
+        type="radio"
+        name="address"
+        onChange={(e) => handleSelectAddress(address)}
+      />
       <div className="address-card-details">
         <h4>{fullName}</h4>
         <p>
