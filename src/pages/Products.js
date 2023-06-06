@@ -88,7 +88,7 @@ function ProductsSection() {
     <div className="product-section">
       <div className="product-section-quantity">
         <label>Showing All Products </label>
-        <label>{`(showing ${products.length} products)`}</label>
+        <label>{`(showing ${getFilteredProducts().length} products)`}</label>
       </div>
 
       <ProductList products={getFilteredProducts()} />
