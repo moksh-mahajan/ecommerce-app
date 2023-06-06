@@ -30,7 +30,7 @@ function Header() {
 }
 
 function PriceSlider() {
-  const { dispatch } = useContext(FiltersContext);
+  const { dispatch, selectedPrice } = useContext(FiltersContext);
 
   return (
     <div className="filter-section">
@@ -117,13 +117,17 @@ function RatingSelector() {
 }
 
 function SortOrderSelector() {
-  const { dispatch } = useContext(FiltersContext);
+  const {
+    dispatch,
+    state: { sortOrder },
+  } = useContext(FiltersContext);
 
   return (
     <div className="filter-section">
       <h4>Sort by</h4>
       <Radio
         label="Price - Low to High"
+        value={sortOrder === "asc"}
         name="sortOrder"
         onChange={() =>
           dispatch({ type: "SORT_ORDER_CHANGED", payload: "asc" })
@@ -131,6 +135,7 @@ function SortOrderSelector() {
       />
       <Radio
         label="Price - High to Low"
+        value={sortOrder === "desc"}
         name="sortOrder"
         onChange={() =>
           dispatch({ type: "SORT_ORDER_CHANGED", payload: "desc" })
@@ -148,5 +153,3 @@ function CheckBox({ label, onChange, value }) {
     </div>
   );
 }
-
-
