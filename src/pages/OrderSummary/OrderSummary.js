@@ -10,6 +10,14 @@ export default function OrderSummary() {
 
   const { fullName, addressLine, landMark, city, state, pincode } =
     selectedAddress;
+    const totalMrp = cartItems.reduce(
+      (acc, { price, qty }) => acc + price * qty,
+      0
+    );
+    console.log(totalMrp)
+
+  const finalAmount = totalMrp + 99 - (0.15 * totalMrp);
+
   return (
     <>
       <div className="order-summary-heading">
@@ -32,7 +40,7 @@ export default function OrderSummary() {
         </div>
         <div className="order-summary-card-total">
           <h5 className="order-summary-card-headings">Cart Total:</h5>
-          <p>Rs. 2099</p>
+          <p>₹ {finalAmount}</p>
         </div>
         <div className="order-summary-card-address">
           <h5 className="order-summary-card-headings">Deliver to:</h5>

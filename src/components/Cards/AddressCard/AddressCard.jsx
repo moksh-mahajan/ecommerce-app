@@ -17,7 +17,7 @@ export default function AddressCard({
       <input
         type="radio"
         name="address"
-        onChange={(e) => handleSelectAddress(address)}
+        onChange={() => handleSelectAddress(address)}
       />
       <div className="address-card-details">
         <h4>{fullName}</h4>
